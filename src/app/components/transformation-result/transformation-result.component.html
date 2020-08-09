@@ -83,7 +83,7 @@
             <table *ngIf="showCalculation" class="math-table formula">
                 <tbody>
                     <tr>
-                        <td rowspan="2">{{ ndc.x }} =</td>
+                        <td rowspan="2">{{ ndc.x.toFixed(2) }} =</td>
                         <td rowspan="2">{{ range[1] - range[0] }} *</td>
                         <td class="bottom-line">{{ point.x }} - {{ world.x.min }}</td>
                         <td rowspan="2">+ {{ range[0] }}</td>
@@ -98,7 +98,7 @@
             <table *ngIf="showCalculation" class="math-table formula">
                 <tbody>
                     <tr>
-                        <td rowspan="2">{{ ndc.y }} =</td>
+                        <td rowspan="2">{{ ndc.y.toFixed(2) }} =</td>
                         <td rowspan="2">{{ range[1] - range[0] }} *</td>
                         <td class="bottom-line">{{ point.y }} - {{ world.y.min }}</td>
                         <td rowspan="2">+ {{ range[0] }}</td>
@@ -120,8 +120,8 @@
                 <hr *ngIf="showCalculation" />
 
                 <!-- Calculation -->
-                <p *ngIf="showCalculation">{{ dc.x }} = round({{ ndc.x }} * ({{ device.x.max }} - 1))</p>
-                <p *ngIf="showCalculation">{{ dc.y }} = round({{ ndc.y }} * ({{ device.y.max }} - 1))</p>
+                <p *ngIf="showCalculation">{{ dc.x }} = round({{ ndc.x.toFixed(2) }} * ({{ device.x.max }} - 1))</p>
+                <p *ngIf="showCalculation">{{ dc.y }} = round({{ ndc.y.toFixed(2) }} * ({{ device.y.max }} - 1))</p>
             </div>
         </div>
     </div>
