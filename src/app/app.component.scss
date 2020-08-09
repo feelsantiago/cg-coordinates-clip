@@ -1,5 +1,5 @@
 .app-container {
-    margin: 50px 35px;
+    margin: 50px 5%;
 
     header {
         display: flex;
@@ -25,4 +25,17 @@
 .divider {
     width: 80%;
     border-top: 1px solid #ddd;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.vertical-divider {
+    border-left: 1px solid #ddd;
+}
+
+.column {
+    margin: 0 20px;
 }

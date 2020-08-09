@@ -13,5 +13,14 @@
 
     <hr class="divider" />
 
-    <app-input-coordinates></app-input-coordinates>
+    <div class="content">
+        <div class="column">
+            <app-input-coordinates></app-input-coordinates>
+        </div>
+        <div class="vertical-divider"></div>
+        <div class="column">
+            <p>{{ ndc | json }}</p>
+            <p>{{ dc | json }}</p>
+        </div>
+    </div>
 </div>
