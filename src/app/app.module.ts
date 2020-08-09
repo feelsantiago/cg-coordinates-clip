@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InputCoordinatesComponent } from './components';
+import { InputCoordinatesComponent, TransformationResultComponent } from './components';
 
 @NgModule({
-    declarations: [AppComponent, InputCoordinatesComponent],
+    declarations: [AppComponent, InputCoordinatesComponent, TransformationResultComponent],
     imports: [BrowserModule, AppRoutingModule],
     providers: [],
     bootstrap: [AppComponent],

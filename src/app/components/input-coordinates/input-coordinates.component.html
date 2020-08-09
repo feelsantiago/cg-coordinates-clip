@@ -25,6 +25,19 @@
                 </div>
             </div>
         </div>
+        <div class="normalized-device-coordinate">
+            <h4 class="section-label">Normalized Range:</h4>
+            <div class="row">
+                <div>
+                    <input type="radio" id="origin" name="normalized" value="origin" />
+                    <label for="origin">0 to 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="center" name="normalized" value="center" />
+                    <label for="center">-1 to 1</label>
+                </div>
+            </div>
+        </div>
         <div class="device-coordinates group">
             <h4 class="section-label">Device Coordinates:</h4>
             <div class="row">
@@ -50,6 +63,9 @@
                     <input type="number" placeholder="Value" />
                 </div>
             </div>
+        </div>
+        <div class="action">
+            <button>Transform</button>
         </div>
     </form>
 </div>
