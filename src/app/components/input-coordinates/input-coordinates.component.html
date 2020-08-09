@@ -1,26 +1,26 @@
 <div>
-    <form>
+    <form [formGroup]="coordinateForm" (ngSubmit)="onFormSubmit()">
         <div class="world-coordinates group">
             <h4 class="section-label">World Coordinates:</h4>
             <div>
                 <div class="row">
                     <div class="input-coordinate">
                         <div class="coordinate">x</div>
-                        <input type="number" placeholder="Min" />
+                        <input type="number" placeholder="Min" formControlName="worldXMin" />
                     </div>
                     <div class="input-coordinate">
                         <div class="coordinate">x</div>
-                        <input type="number" placeholder="Max" />
+                        <input type="number" placeholder="Max" formControlName="worldXMax" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-coordinate">
                         <div class="coordinate">y</div>
-                        <input type="number" placeholder="Min" />
+                        <input type="number" placeholder="Min" formControlName="worldYMin" />
                     </div>
                     <div class="input-coordinate">
                         <div class="coordinate">y</div>
-                        <input type="number" placeholder="Max" />
+                        <input type="number" placeholder="Max" formControlName="worldYMax" />
                     </div>
                 </div>
             </div>
@@ -29,11 +29,11 @@
             <h4 class="section-label">Normalized Range:</h4>
             <div class="row">
                 <div>
-                    <input type="radio" id="origin" name="normalized" value="origin" />
+                    <input type="radio" id="origin" value="origin" formControlName="normalizedRange" />
                     <label for="origin">0 to 1</label>
                 </div>
                 <div>
-                    <input type="radio" id="center" name="normalized" value="center" />
+                    <input type="radio" id="center" value="center" formControlName="normalizedRange" />
                     <label for="center">-1 to 1</label>
                 </div>
             </div>
@@ -43,11 +43,11 @@
             <div class="row">
                 <div class="input-coordinate">
                     <div class="coordinate">x</div>
-                    <input type="number" placeholder="Width" />
+                    <input type="number" placeholder="Width" formControlName="deviceX" />
                 </div>
                 <div class="input-coordinate">
                     <div class="coordinate">y</div>
-                    <input type="number" placeholder="Height" />
+                    <input type="number" placeholder="Height" formControlName="deviceY" />
                 </div>
             </div>
         </div>
@@ -56,11 +56,11 @@
             <div class="row">
                 <div class="input-coordinate">
                     <div class="coordinate">x</div>
-                    <input type="number" placeholder="Value" />
+                    <input type="number" placeholder="Value" formControlName="pointX" />
                 </div>
                 <div class="input-coordinate">
                     <div class="coordinate">y</div>
-                    <input type="number" placeholder="Value" />
+                    <input type="number" placeholder="Value" formControlName="pointY" />
                 </div>
             </div>
         </div>

@@ -14,3 +14,10 @@ export interface ViewPort {
         max: number;
     };
 }
+
+export enum NormalizedRange {
+    origin = 'origin',
+    center = 'center',
+}
+
+export type Range = [number, number];
