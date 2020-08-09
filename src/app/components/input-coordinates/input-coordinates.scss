@@ -1,0 +1,57 @@
+label {
+    margin-right: 10px;
+}
+
+input {
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+}
+
+.input-coordinate {
+    display: flex;
+
+    padding: 0;
+    margin: 5px;
+
+    input {
+        margin: 0;
+        border-radius: 0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        border: 1px solid #ff7d00;
+        border-left: none;
+
+        font-weight: 600;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .coordinate {
+        width: 35px;
+        height: inherit;
+        color: white;
+        font-weight: bold;
+        background-color: #ff7d00;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+}
+
+.world-coordinates {
+    h4 {
+        margin: 5px;
+        font-style: italic;
+        color: #7b7777;
+    }
+}
