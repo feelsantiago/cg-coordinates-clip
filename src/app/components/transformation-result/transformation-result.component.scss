@@ -1,5 +1,15 @@
+.transformation-result {
+    display: flex;
+    flex-wrap: wrap;
+
+    .row {
+        margin: 20px 5px;
+    }
+}
+
 .result-table {
     border-collapse: collapse;
+    margin-bottom: 10px;
     width: 300px;
 
     th,
@@ -44,7 +54,7 @@
 
 .card {
     padding: 0;
-    margin: 10px 0;
+    margin-bottom: 10px;
     border: 1px solid #ff7d00;
     text-align: center;
 

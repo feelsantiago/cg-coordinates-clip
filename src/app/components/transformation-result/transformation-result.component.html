@@ -1,109 +1,113 @@
 <div class="transformation-result">
-    <table class="result-table">
-        <thead>
-            <tr>
-                <th colspan="2">Normalized Range</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>ndc<sub>min</sub></td>
-                <td>ndc<sub>max</sub></td>
-            </tr>
-            <tr>
-                <td>-1</td>
-                <td>1</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="card">
-        <h4>Transformation: World to Normalized</h4>
-        <table class="math-table formula">
+    <div class="row">
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Normalized Range</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
-                    <td rowspan="2">ndcx =</td>
-                    <td rowspan="2">(ndc<sub>max</sub> - ndc<sub>min</sub>) *</td>
-                    <td class="bottom-line">x - x<sub>min</sub></td>
-                    <td rowspan="2">+ ndc<sub>min</sub></td>
+                    <td>ndc<sub>min</sub></td>
+                    <td>ndc<sub>max</sub></td>
                 </tr>
                 <tr>
-                    <td>x<sub>max</sub> - x<sub>min</sub></td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="math-table formula">
-            <tbody>
-                <tr>
-                    <td rowspan="2">ndcy =</td>
-                    <td rowspan="2">(ndc<sub>max</sub> - ndc<sub>min</sub>) *</td>
-                    <td class="bottom-line">y - y<sub>min</sub></td>
-                    <td rowspan="2">+ ndc<sub>min</sub></td>
-                </tr>
-                <tr>
-                    <td>x<sub>max</sub> - x<sub>min</sub></td>
+                    <td>-1</td>
+                    <td>1</td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="formula">
-            <hr />
-        </div>
-
-        <table class="math-table formula">
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Device Coordinates Result</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
-                    <td rowspan="2">0.2 =</td>
-                    <td rowspan="2">2 *</td>
-                    <td class="bottom-line">100 - 10<sub>min</sub></td>
-                    <td rowspan="2">+ - 1</td>
+                    <td>x</td>
+                    <td>y</td>
                 </tr>
                 <tr>
-                    <td>800 - 10</td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="math-table formula">
-            <tbody>
-                <tr>
-                    <td rowspan="2">0.3 =</td>
-                    <td rowspan="2">2 *</td>
-                    <td class="bottom-line">100 - 10</td>
-                    <td rowspan="2">+ - 1</td>
-                </tr>
-                <tr>
-                    <td>700 - 10</td>
+                    <td>1</td>
+                    <td>2</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="card">
-        <h4>Transformation: Normalized to Device</h4>
-        <div class="formula">
-            <p>dcx = round(ndcx * (ndh - 1))</p>
-            <p>dcy = round(ndcy * (ndv - 1))</p>
-            <hr />
-            <p>150 = round(0.5 * (1920 - 1))</p>
-            <p>452 = round(0.2 * (1080 - 1))</p>
+    <div class="row">
+        <div class="card">
+            <h4>Transformation: World to Normalized</h4>
+            <table class="math-table formula">
+                <tbody>
+                    <tr>
+                        <td rowspan="2">ndcx =</td>
+                        <td rowspan="2">(ndc<sub>max</sub> - ndc<sub>min</sub>) *</td>
+                        <td class="bottom-line">x - x<sub>min</sub></td>
+                        <td rowspan="2">+ ndc<sub>min</sub></td>
+                    </tr>
+                    <tr>
+                        <td>x<sub>max</sub> - x<sub>min</sub></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="math-table formula">
+                <tbody>
+                    <tr>
+                        <td rowspan="2">ndcy =</td>
+                        <td rowspan="2">(ndc<sub>max</sub> - ndc<sub>min</sub>) *</td>
+                        <td class="bottom-line">y - y<sub>min</sub></td>
+                        <td rowspan="2">+ ndc<sub>min</sub></td>
+                    </tr>
+                    <tr>
+                        <td>x<sub>max</sub> - x<sub>min</sub></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula">
+                <hr />
+            </div>
+
+            <table class="math-table formula">
+                <tbody>
+                    <tr>
+                        <td rowspan="2">0.2 =</td>
+                        <td rowspan="2">2 *</td>
+                        <td class="bottom-line">100 - 10<sub>min</sub></td>
+                        <td rowspan="2">+ - 1</td>
+                    </tr>
+                    <tr>
+                        <td>800 - 10</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="math-table formula">
+                <tbody>
+                    <tr>
+                        <td rowspan="2">0.3 =</td>
+                        <td rowspan="2">2 *</td>
+                        <td class="bottom-line">100 - 10</td>
+                        <td rowspan="2">+ - 1</td>
+                    </tr>
+                    <tr>
+                        <td>700 - 10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h4>Transformation: Normalized to Device</h4>
+            <div class="formula">
+                <p>dcx = round(ndcx * (ndh - 1))</p>
+                <p>dcy = round(ndcy * (ndv - 1))</p>
+                <hr />
+                <p>150 = round(0.5 * (1920 - 1))</p>
+                <p>452 = round(0.2 * (1080 - 1))</p>
+            </div>
         </div>
     </div>
-
-    <table class="result-table">
-        <thead>
-            <tr>
-                <th colspan="2">Device Coordinates Result</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>x</td>
-                <td>y</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-        </tbody>
-    </table>
 </div>

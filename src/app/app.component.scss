@@ -1,5 +1,5 @@
 .app-container {
-    margin: 50px 5%;
+    margin-top: 25px;
 
     header {
         display: flex;
@@ -29,6 +29,7 @@
 
 .content {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
