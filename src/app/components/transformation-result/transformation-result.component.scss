@@ -1,0 +1,60 @@
+.result-table {
+    border-collapse: collapse;
+    width: 300px;
+
+    th,
+    td {
+        border: 1px solid #ff7d00;
+        text-align: center;
+    }
+
+    thead,
+    tfoot {
+        background-color: #ff7d00;
+        color: #fff;
+    }
+}
+
+.math-table {
+    display: flex;
+    justify-content: center;
+
+    td {
+        text-align: center;
+    }
+
+    .bottom-line {
+        border-bottom: 1px solid grey;
+    }
+}
+
+.formula {
+    font-style: italic;
+    color: grey;
+
+    hr {
+        border-top: 1px solid #ff7d00;
+    }
+
+    p {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.card {
+    padding: 0;
+    margin: 10px 0;
+    border: 1px solid #ff7d00;
+    text-align: center;
+
+    h4 {
+        padding: 0;
+        margin: 0;
+        color: white;
+        background-color: #ff7d00;
+        border-bottom: 1px solid #ff7d00;
+
+        font-size: small;
+    }
+}
