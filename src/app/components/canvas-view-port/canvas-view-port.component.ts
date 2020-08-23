@@ -1,8 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ViewPort, Point, NormalizedRange } from '../../types/coordinates';
+import { ViewPort, NormalizedRange } from '../../types/coordinates';
 import { DocumentService } from '../../services/document.service';
 import { CoordinatesService } from '../../services/coordinates.service';
-import { MouseCoordinatesEvent } from '../../types/events';
 
 @Component({
     selector: 'app-canvas-view-port',
@@ -17,7 +16,11 @@ export class CanvasViewPortComponent implements AfterViewInit {
 
     private isMouseOnCanvas = false;
 
-    private documentViewPort: ViewPort;
+    private viewPort: ViewPort;
+
+    private viewPortOffSetLeft = 0;
+
+    private viewPortOffSetTop = 0;
 
     public canvas: ViewPort = {
         x: {
@@ -30,8 +33,6 @@ export class CanvasViewPortComponent implements AfterViewInit {
         },
     };
 
-    public point: Point;
-
     constructor(
         private readonly documentService: DocumentService,
         private readonly coordinatesService: CoordinatesService,
@@ -39,23 +40,21 @@ export class CanvasViewPortComponent implements AfterViewInit {
 
     public ngAfterViewInit(): void {
         this.canvasViewPort = this.canvasViewPortRef.nativeElement as HTMLDivElement;
+        const viewPort = this.canvasViewPort.getBoundingClientRect();
+        this.viewPortOffSetLeft = viewPort.left;
+        this.viewPortOffSetTop = viewPort.top;
 
         this.canvasViewPort.addEventListener('mousemove', (mouse) => {
-            const viewPort = this.canvasViewPort.getBoundingClientRect();
-            const x = mouse.x - viewPort.left;
-            const y = mouse.y - viewPort.top;
+            const x = mouse.x - this.viewPortOffSetLeft;
+            const y = mouse.y - this.viewPortOffSetTop;
 
-            const coordinates = { x, y };
-
-            const ndc = this.coordinatesService.worldToNdc(coordinates, this.documentViewPort, NormalizedRange.center);
-            const device = this.coordinatesService.ndcToDevice(ndc, this.canvas);
-            this.point = device;
+            this.coordinatesService.transformAndEmit(this.viewPort, this.canvas, { x, y }, NormalizedRange.center);
         });
 
         const width = this.canvasViewPort.clientWidth;
         const height = this.canvasViewPort.clientHeight;
 
-        this.documentViewPort = {
+        this.viewPort = {
             x: {
                 min: 0,
                 max: width,
@@ -73,13 +72,5 @@ export class CanvasViewPortComponent implements AfterViewInit {
 
     public onMouseLeavesCanvasHandle(isMouseOnCanvas: boolean): void {
         this.isMouseOnCanvas = isMouseOnCanvas;
-    }
-
-    public onMouseMoveOnCanvasHandle(coordinates: MouseCoordinatesEvent): void {
-        if (this.isMouseOnCanvas) {
-            const ndc = this.coordinatesService.worldToNdc(coordinates, this.documentViewPort, NormalizedRange.center);
-            const device = this.coordinatesService.ndcToDevice(ndc, this.canvas);
-            this.point = device;
-        }
     }
 }

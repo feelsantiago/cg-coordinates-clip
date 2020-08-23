@@ -9,6 +9,7 @@ import { TransformationComponent } from './pages/transformation/transformation.c
 import { InterpolationComponent } from './pages/interpolation/interpolation.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-view-port.component';
+import { InterpolationResultComponent } from './components/interpolation-result/interpolation-result.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-vi
         TransformationResultComponent,
         CanvasComponent,
         CanvasViewPortComponent,
+        InterpolationResultComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],

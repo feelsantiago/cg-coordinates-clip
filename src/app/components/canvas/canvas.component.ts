@@ -46,15 +46,15 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     private drawCartesianLines(): void {
         const ctx = this.canvas.getContext('2d');
-
-        // X-Axis
-        ctx.moveTo(0, this.height / 2);
-        ctx.lineTo(this.width, this.height / 2);
-        ctx.stroke();
-
+        ctx.strokeStyle = '#ff0000';
         // Y-Axis
         ctx.moveTo(this.width / 2, 0);
         ctx.lineTo(this.width / 2, this.height);
+        ctx.stroke();
+
+        // X-Axis-Half
+        ctx.moveTo(0, this.height / 2);
+        ctx.lineTo(this.width, this.height / 2);
         ctx.stroke();
     }
 
