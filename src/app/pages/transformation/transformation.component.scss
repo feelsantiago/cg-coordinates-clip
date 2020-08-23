@@ -1,0 +1,13 @@
+.column {
+    margin: 0 20px;
+}
+
+.vertical-divider {
+    border-left: 1px solid #ddd;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
