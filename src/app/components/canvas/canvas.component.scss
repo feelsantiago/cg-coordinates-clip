@@ -1,3 +1,9 @@
 canvas {
     background: #bfb8a4;
 }
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

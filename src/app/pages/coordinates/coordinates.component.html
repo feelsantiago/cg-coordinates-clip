@@ -1,11 +1,13 @@
 <h1>Coordinates page</h1>
 <div>
     <div>{{ point | json }}</div>
-    <app-canvas
-        [height]="canvasViewPort.x.max"
-        [width]="canvasViewPort.y.max"
-        (onMouseEnterCanvas)="onMouseEnterCanvasHandle($event)"
-        (onMouseLeavesCanvas)="onMouseLeavesCanvasHandle($event)"
-        (onMouseMoveOnCanvas)="onMouseMoveOnCanvasHandle($event)"
-    ></app-canvas>
+    <div #canvasViewPort class="canvas-viewport">
+        <app-canvas
+            [height]="canvas.x.max"
+            [width]="canvas.y.max"
+            (onMouseEnterCanvas)="onMouseEnterCanvasHandle($event)"
+            (onMouseLeavesCanvas)="onMouseLeavesCanvasHandle($event)"
+            (onMouseMoveOnCanvas)="onMouseMoveOnCanvasHandle($event)"
+        ></app-canvas>
+    </div>
 </div>
