@@ -2,23 +2,26 @@
     <header>
         <img src="/assets/images/balancas.png" alt="logo" />
         <h1>
-            <span class="primary-title">
+            <span class="primary-title is-size-2">
                 Graphics Coordinates
             </span>
-            <span class="accent-title">
+            <span class="accent-title is-size-2 has-text-weight-bold">
                 Transformations
             </span>
         </h1>
     </header>
 
-    <hr class="divider" />
+    <div class="container">
+        <hr class="divider" />
+        <nav class="level">
+            <p class="level-item has-text-centered">
+                <a class="link is-info" routerLink="/transformation">Transformations</a>
+            </p>
+            <p class="level-item has-text-centered">
+                <a class="link is-info" routerLink="/coordinates">Coordinates</a>
+            </p>
+        </nav>
 
-    <nav>
-        <a routerLink="/transformation">Transformations</a>
-        <a routerLink="/coordinates">Coordinates</a>
-    </nav>
-
-    <div class="content">
         <router-outlet></router-outlet>
     </div>
 </div>

@@ -1,13 +1,9 @@
-<h1>Coordinates page</h1>
-<div>
-    <div>{{ point | json }}</div>
-    <div #canvasViewPort class="canvas-viewport">
-        <app-canvas
-            [height]="canvas.x.max"
-            [width]="canvas.y.max"
-            (onMouseEnterCanvas)="onMouseEnterCanvasHandle($event)"
-            (onMouseLeavesCanvas)="onMouseLeavesCanvasHandle($event)"
-            (onMouseMoveOnCanvas)="onMouseMoveOnCanvasHandle($event)"
-        ></app-canvas>
+<h1 class="">Coordinates page</h1>
+<div class="columns">
+    <div class="column is-one-quarter">
+        <h1>saidas</h1>
+    </div>
+    <div class="column">
+        <app-canvas-view-port></app-canvas-view-port>
     </div>
 </div>

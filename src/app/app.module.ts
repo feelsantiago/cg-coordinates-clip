@@ -8,6 +8,7 @@ import { InputCoordinatesComponent, TransformationResultComponent } from './comp
 import { TransformationComponent } from './pages/transformation/transformation.component';
 import { CoordinatesComponent } from './pages/coordinates/coordinates.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
+import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-view-port.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { CanvasComponent } from './components/canvas/canvas.component';
         InputCoordinatesComponent,
         TransformationResultComponent,
         CanvasComponent,
+        CanvasViewPortComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],
