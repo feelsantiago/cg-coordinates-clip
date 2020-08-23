@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TransformationComponent } from './pages/transformation/transformation.component';
-import { CoordinatesComponent } from './pages/coordinates/coordinates.component';
+import { InterpolationComponent } from './pages/interpolation/interpolation.component';
 
 const routes: Routes = [
     {
@@ -9,8 +9,8 @@ const routes: Routes = [
         component: TransformationComponent,
     },
     {
-        path: 'coordinates',
-        component: CoordinatesComponent,
+        path: 'interpolation',
+        component: InterpolationComponent,
     },
     {
         path: '',

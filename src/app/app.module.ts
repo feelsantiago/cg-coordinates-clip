@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InputCoordinatesComponent, TransformationResultComponent } from './components';
 import { TransformationComponent } from './pages/transformation/transformation.component';
-import { CoordinatesComponent } from './pages/coordinates/coordinates.component';
+import { InterpolationComponent } from './pages/interpolation/interpolation.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-view-port.component';
 
@@ -14,7 +14,7 @@ import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-vi
     declarations: [
         AppComponent,
         TransformationComponent,
-        CoordinatesComponent,
+        InterpolationComponent,
         InputCoordinatesComponent,
         TransformationResultComponent,
         CanvasComponent,
