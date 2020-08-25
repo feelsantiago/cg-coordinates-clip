@@ -1,82 +1,94 @@
 <div>
     <!-- World -->
-    <div class="row">
-        <h4 class="is-size-4">World Coordinates</h4>
-        <div class="columns">
-            <div class="column input-coordinate">
-                <div class="coordinate">x</div>
-                <input type="number" placeholder="Max" disabled [value]="world.x.max" />
-            </div>
-            <div class="column input-coordinate">
-                <div class="coordinate">y</div>
-                <input type="number" placeholder="Max" disabled [value]="world.y.max" />
+    <div class="coordinates">
+        <h4 class="is-size-5">World Coordinates:</h4>
+        <div class="row">
+            <div class="columns">
+                <div class="column input-coordinate">
+                    <div class="coordinate">x</div>
+                    <input type="number" placeholder="Max" disabled [value]="world.x.max" />
+                </div>
+                <div class="column input-coordinate">
+                    <div class="coordinate">y</div>
+                    <input type="number" placeholder="Max" disabled [value]="world.y.max" />
+                </div>
             </div>
         </div>
     </div>
+
+    
 
     <!-- Device -->
-    <div class="row">
-        <h4 class="is-size-4">Device Coordinates</h4>
-        <div class="columns">
-            <div class="column input-coordinate">
-                <div class="coordinate">x</div>
-                <input type="number" placeholder="Max" disabled [value]="device.x.max" />
-            </div>
-            <div class="column input-coordinate">
-                <div class="coordinate">y</div>
-                <input type="number" placeholder="Max" disabled [value]="device.y.max" />
+    <div class="coordinates">
+        <h4 class="is-size-5">Device Coordinates:</h4>
+        <div class="row">
+            <div class="columns">
+                <div class="column input-coordinate">
+                    <div class="coordinate">x</div>
+                    <input type="number" placeholder="Max" disabled [value]="device.x.max" />
+                </div>
+                <div class="column input-coordinate">
+                    <div class="coordinate">y</div>
+                    <input type="number" placeholder="Max" disabled [value]="device.y.max" />
+                </div>
             </div>
         </div>
     </div>
+    
+    
 
     <!-- Point -->
-    <div class="row">
-        <h4 class="is-size-4">Mouse Point Coordinates</h4>
-        <div class="columns">
-            <div class="column input-coordinate">
-                <div class="coordinate">x</div>
-                <input type="number" placeholder="Max" disabled [value]="point.x.toFixed(2)" />
-            </div>
-            <div class="column input-coordinate">
-                <div class="coordinate">y</div>
-                <input type="number" placeholder="Max" disabled [value]="point.y.toFixed(2)" />
+    <div class="coordinates">
+        <h4 class="is-size-5">Mouse Point Coordinates:</h4>
+        <div class="row">
+            <div class="columns">
+                <div class="column input-coordinate">
+                    <div class="coordinate">x</div>
+                    <input type="number" placeholder="Max" disabled [value]="point.x.toFixed(2)" />
+                </div>
+                <div class="column input-coordinate">
+                    <div class="coordinate">y</div>
+                    <input type="number" placeholder="Max" disabled [value]="point.y.toFixed(2)" />
+                </div>
             </div>
         </div>
     </div>
 
+    
+    
     <!-- NDC -->
-    <div class="row">
-        <h4 class="is-size-4">NDC Point Coordinates</h4>
-        <div class="columns">
-            <div class="column input-coordinate">
-                <div class="coordinate">x</div>
-                <input type="number" placeholder="Max" disabled [value]="ndc.x.toFixed(2)" />
-            </div>
-            <div class="column input-coordinate">
-                <div class="coordinate">y</div>
-                <input type="number" placeholder="Max" disabled [value]="ndc.y.toFixed(2)" />
+    <div class="coordinates">
+        <h4 class="is-size-5">NDC Point Coordinates:</h4>
+        <div class="row">
+            <div class="columns">
+                <div class="column input-coordinate">
+                    <div class="coordinate">x</div>
+                    <input type="number" placeholder="Max" disabled [value]="ndc.x.toFixed(2)" />
+                </div>
+                <div class="column input-coordinate">
+                    <div class="coordinate">y</div>
+                    <input type="number" placeholder="Max" disabled [value]="ndc.y.toFixed(2)" />
+                </div>
             </div>
         </div>
     </div>
+
+    
 
     <!-- DC -->
-    <div class="row">
-        <h4 class="is-size-4">Device Point Coordinates</h4>
-        <div class="columns">
-            <div class="column input-coordinate">
-                <div class="coordinate">x</div>
-                <input type="number" placeholder="Max" disabled [value]="dc.x" />
-            </div>
-            <div class="column input-coordinate">
-                <div class="coordinate">y</div>
-                <input type="number" placeholder="Max" disabled [value]="dc.y" />
+    <div class="coordinates">
+        <h4 class="is-size-5">Device Point Coordinates:</h4>
+        <div class="row">
+            <div class="columns">
+                <div class="column input-coordinate">
+                    <div class="coordinate">x</div>
+                    <input type="number" placeholder="Max" disabled [value]="dc.x" />
+                </div>
+                <div class="column input-coordinate">
+                    <div class="coordinate">y</div>
+                    <input type="number" placeholder="Max" disabled [value]="dc.y" />
+                </div>
             </div>
         </div>
     </div>
-
-    <p class="subtitle">
-        Move your mouse on the <span class="orange">view port</span> in the right to see the coordinates transformation
-        on the
-        <span class="red">canvas.</span>
-    </p>
 </div>

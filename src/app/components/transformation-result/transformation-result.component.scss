@@ -1,76 +1,101 @@
 .transformation-result {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
 
-    .row {
-        margin: 20px 5px;
-    }
-}
+    .results {
+        flex: 1;
 
-.result-table {
-    border-collapse: collapse;
-    margin-bottom: 10px;
-    width: 300px;
+        .result-table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            width: 100%;
 
-    th,
-    td {
-        border: 1px solid #ff7d00;
-        text-align: center;
-    }
+            th,
+            td {
+                border: 1px solid #ff7d00;
+                text-align: center;
+            }
 
-    thead {
-        th {
-            color: white;
+            thead {
+                th {
+                    color: white;
+                }
+            }
+
+            thead,
+            tfoot {
+                background-color: #ff7d00;
+                color: #fff;
+            }
         }
     }
 
-    thead,
-    tfoot {
-        background-color: #ff7d00;
-        color: #fff;
-    }
-}
+    .formulas {
+        flex: 1;
 
-.math-table {
-    display: flex;
-    justify-content: center;
+        .card {
+            padding: 0;
+            margin-bottom: 10px;
+            border: 1px solid #ff7d00;
+            text-align: center;
 
-    td {
-        text-align: center;
-    }
+            .title {
+                display: flex;
+                padding: 12px;
+                background-color: #ff7d00;
+                margin-bottom: 0px;
 
-    .bottom-line {
-        border-bottom: 1px solid grey;
-    }
-}
+                span {
+                    flex: 1;
+                    color: white;
+                    font-size: 16px;
+                }
+            }
 
-.formula {
-    font-style: italic;
-    color: grey;
+            table {
+                margin: 0px;
+            }
 
-    hr {
-        border-top: 1px solid #ff7d00;
-    }
+            hr {
+                height: 1px;
+                background-color: #dbdbdb;
+                margin: 0px 10px;
+            }
+        }
 
-    p {
-        padding: 0;
-        margin: 0;
-    }
-}
+        .math-table {
+            display: flex;
+            justify-content: center;
 
-.card {
-    padding: 0;
-    margin-bottom: 10px;
-    border: 1px solid #ff7d00;
-    text-align: center;
+            td {
+                text-align: center;
+                border: none;
+            }
 
-    h4 {
-        padding: 0;
-        margin: 0;
-        color: white;
-        background-color: #ff7d00;
-        border-bottom: 1px solid #ff7d00;
+            .bottom-line {
+                border-bottom: 1px solid grey;
+            }
+        }
 
-        font-size: small;
+        .formula {
+            padding: 10px 0px;
+            font-style: italic;
+            color: grey;
+
+            hr {
+                border-top: 1px solid #ff7d00;
+                margin: 20px 0px;
+            }
+
+            p {
+                padding: 0;
+                margin: 0;
+            }
+
+            &.no-padding {
+                padding: 0px;
+            }
+        }
     }
 }

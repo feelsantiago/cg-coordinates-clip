@@ -1,5 +1,5 @@
 <div class="transformation-result">
-    <div class="row">
+    <div class="results">
         <table class="result-table">
             <thead>
                 <tr>
@@ -37,9 +37,11 @@
         </table>
     </div>
 
-    <div class="row">
+    <div class="formulas">
         <div class="card">
-            <h4>Transformation: World to Normalized</h4>
+            <div class="title">
+                <span><b>Transformation: World to Normalized</b></span>
+            </div>
 
             <!-- Formulas -->
 
@@ -58,6 +60,8 @@
                 </tbody>
             </table>
 
+            <hr />
+
             <!-- Y -->
             <table class="math-table formula">
                 <tbody>
@@ -73,7 +77,7 @@
                 </tbody>
             </table>
 
-            <div *ngIf="showCalculation" class="formula">
+            <div *ngIf="showCalculation" class="formula no-padding">
                 <hr />
             </div>
 
@@ -94,6 +98,10 @@
                 </tbody>
             </table>
 
+            <div *ngIf="showCalculation">
+                <hr />
+            </div>
+
             <!-- Y -->
             <table *ngIf="showCalculation" class="math-table formula">
                 <tbody>
@@ -111,7 +119,10 @@
         </div>
 
         <div class="card">
-            <h4>Transformation: Normalized to Device</h4>
+            <div class="title">
+                <span><b>Transformation: Normalized to Device</b></span>
+            </div>
+
             <div class="formula">
                 <!-- Formula -->
                 <p>dcx = round(ndcx * (ndh - 1))</p>
