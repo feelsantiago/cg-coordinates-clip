@@ -1,26 +1,12 @@
 <div class="app-container">
     <header>
-        <img src="/assets/images/balancas.png" alt="logo" />
-        <h1>
-            <span class="primary-title is-size-2">
-                Graphics Coordinates
-            </span>
-            <span class="accent-title is-size-2 has-text-weight-bold">
-                Transformations
-            </span>
-        </h1>
+        <div class="container">
+           <app-navbar></app-navbar>
+        </div>
     </header>
 
     <div class="container">
         <hr class="divider" />
-        <nav class="level">
-            <p class="level-item has-text-centered">
-                <a class="link is-info" routerLink="/transformation">Transformations</a>
-            </p>
-            <p class="level-item has-text-centered">
-                <a class="link is-info" routerLink="/interpolation">Interpolation</a>
-            </p>
-        </nav>
 
         <router-outlet></router-outlet>
     </div>
