@@ -1,3 +1,15 @@
 .title {
     margin: 15px;
 }
+
+.subtitle {
+    margin: 15px 0px 50px 0px !important;
+
+    .red {
+        color: red;
+    }
+
+    .orange {
+        color: orange;
+    }
+}

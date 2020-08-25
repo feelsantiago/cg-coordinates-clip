@@ -10,10 +10,12 @@ import { InterpolationComponent } from './pages/interpolation/interpolation.comp
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-view-port.component';
 import { InterpolationResultComponent } from './components/interpolation-result/interpolation-result.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        NavbarComponent,
         TransformationComponent,
         InterpolationComponent,
         InputCoordinatesComponent,
@@ -26,4 +28,4 @@ import { InterpolationResultComponent } from './components/interpolation-result/
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

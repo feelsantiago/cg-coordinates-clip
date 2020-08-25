@@ -1,0 +1,25 @@
+.navbar {
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 52px;
+            height: 52px;
+            margin-right: 10px;
+        }
+    }
+
+    a {
+        font-size: 18px;
+
+        &.active {
+            color: #ff7d00;
+        }
+        
+        &:hover {
+            color: #ff7d00;
+            background-color: #fffaf0;
+        }
+    }
+}

@@ -1,25 +1,5 @@
 .app-container {
     margin-top: 25px;
-
-    header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            width: 52px;
-            height: 52px;
-            margin-right: 10px;
-        }
-
-        .primary-title {
-            color: #dd1100;
-        }
-
-        .accent-title {
-            color: #ff7d00;
-        }
-    }
 }
 
 .divider {

@@ -6,38 +6,36 @@ label {
     display: flex;
 }
 
-.group {
-    margin: 10px 0;
-}
-
 .action {
     display: flex;
     justify-content: center;
+    margin: 20px 5px;
 
     button {
+        width: 100%;
+        color: #ec561a;
         background-color: white;
-        border: 1px solid #dd1100;
-        color: #dd1100;
-        padding: 10px 20px;
-        width: 125px;
         border-radius: 5px;
-        font-weight: 500;
+        border: 1px solid #ec561a;
+        margin-right: 60px;
 
         &:hover {
-            background-color: #ec561a;
-            border: 1px solid #ec561a;
             color: white;
-            cursor: pointer;
-        }
-
-        &:focus {
-            outline: none;
+            background-color: #ec561a;
         }
     }
 }
 
 .normalized-device-coordinate {
-    label {
-        margin-left: 10px;
+    .row {
+        margin: 0px 5px;
+
+        div:last-child {
+            margin-left: 10px;
+        }
+
+        label {
+            margin-left: 10px;
+        }
     }
 }

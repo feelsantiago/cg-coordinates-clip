@@ -1,19 +1,15 @@
-.row {
-    margin: 10px;
+.coordinates {
+    margin-bottom: 30px;
+    
+    .row {
+        margin: 10px;
+    }
+
+    h4 {
+        font-weight: 600;
+        line-height: 1.125;
+        margin: 5px;
+        margin-bottom: 30px;
+    }
 }
 
-h4 {
-    margin: 10px 0;
-}
-
-.red {
-    color: red;
-}
-
-.orange {
-    color: orange;
-}
-
-.subtitle {
-    margin: 20px 0;
-}
