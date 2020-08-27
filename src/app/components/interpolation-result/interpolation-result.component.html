@@ -16,8 +16,6 @@
         </div>
     </div>
 
-    
-
     <!-- Device -->
     <div class="coordinates">
         <h4 class="is-size-5">Device Coordinates:</h4>
@@ -34,8 +32,6 @@
             </div>
         </div>
     </div>
-    
-    
 
     <!-- Point -->
     <div class="coordinates">
@@ -54,8 +50,6 @@
         </div>
     </div>
 
-    
-    
     <!-- NDC -->
     <div class="coordinates">
         <h4 class="is-size-5">NDC Point Coordinates:</h4>
@@ -73,8 +67,6 @@
         </div>
     </div>
 
-    
-
     <!-- DC -->
     <div class="coordinates">
         <h4 class="is-size-5">Device Point Coordinates:</h4>
@@ -86,7 +78,7 @@
                 </div>
                 <div class="column input-coordinate">
                     <div class="coordinate">y</div>
-                    <input type="number" placeholder="Max" disabled [value]="dc.y" />
+                    <input type="number" placeholder="Max" disabled [value]="dc.y * -1" />
                 </div>
             </div>
         </div>
