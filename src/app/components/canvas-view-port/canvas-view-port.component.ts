@@ -40,11 +40,12 @@ export class CanvasViewPortComponent implements AfterViewInit {
 
     public ngAfterViewInit(): void {
         this.canvasViewPort = this.canvasViewPortRef.nativeElement as HTMLDivElement;
-        const viewPort = this.canvasViewPort.getBoundingClientRect();
-        this.viewPortOffSetLeft = viewPort.left;
-        this.viewPortOffSetTop = viewPort.top;
 
         this.canvasViewPort.addEventListener('mousemove', (mouse) => {
+            const viewPort = this.canvasViewPort.getBoundingClientRect();
+            this.viewPortOffSetLeft = viewPort.left;
+            this.viewPortOffSetTop = viewPort.top;
+
             const x = mouse.x - this.viewPortOffSetLeft;
             const y = mouse.y - this.viewPortOffSetTop;
 
