@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Point } from '../../types/coordinates';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { LineService } from '../../services/line.service';
-import { DdaMetadata, LineCoordinate, PmMetadata } from '../../types/lines';
+import { DdaMetadata, LineCoordinate, PmMetadata, DdaFixValue } from '../../types/lines';
 
 enum LineAlgorithm {
     DDA = 'dda',
@@ -16,7 +16,7 @@ enum LineAlgorithm {
     templateUrl: './lines.component.html',
     styleUrls: ['./lines.component.scss'],
 })
-export class LinesComponent implements OnInit, AfterViewInit {
+export class LinesComponent implements OnInit {
     @ViewChild(CanvasComponent)
     public canvas: CanvasComponent;
 
@@ -34,22 +34,9 @@ export class LinesComponent implements OnInit, AfterViewInit {
 
     private lastPointDraw: Point;
 
-    constructor(private readonly lineService: LineService, private readonly coordinateService: CoordinatesService) {}
+    constructor(private readonly lineService: LineService, private readonly coordinateService: CoordinatesService) { }
 
-    public ngOnInit(): void {}
-
-    public ngAfterViewInit(): void {
-        // Example code to transform device to world coordinates, to draw on canvas
-        const viewPort = {
-            x: { min: 0, max: 500 },
-            y: { min: 0, max: 500 },
-        };
-        const start = this.coordinateService.deviceToWorld({ x: -500, y: 0 }, viewPort);
-        const end = this.coordinateService.deviceToWorld({ x: 500, y: -500 }, viewPort);
-        this.lineService.pm(start, end).subscribe((coordinates) => {
-            this.canvas.drawPixel(coordinates.point);
-        });
-    }
+    public ngOnInit(): void { }
 
     public onMouseStartDrawingHandle(point: Point): void {
         this.onCleanCanvasHandle();
@@ -74,6 +61,30 @@ export class LinesComponent implements OnInit, AfterViewInit {
 
     public onCleanCanvasHandle(): void {
         this.canvas.clean();
+    }
+
+    public onDrawLineHandle(points: DdaFixValue): void {
+        this.canvas.clean();
+        this.drawLineFixValues(points);
+    }
+
+    private drawLineFixValues(points: DdaFixValue): void {
+        const viewPort = {
+            x: { min: 0, max: 500 },
+            y: { min: 0, max: 500 },
+        };
+        const start = this.coordinateService.deviceToWorld({ x: points.startPointX, y: points.startPointY }, viewPort);
+        const end = this.coordinateService.deviceToWorld({ x: points.endPointX, y: points.endPointY }, viewPort);
+
+        if (this.algorithm === LineAlgorithm.DDA) {
+            this.lineService.dda(start, end).subscribe((coordinates) => {
+                this.canvas.drawPixel(coordinates.point);
+            });
+        } else {
+            this.lineService.pm(start, end).subscribe((coordinates) => {
+                this.canvas.drawPixel(coordinates.point);
+            });
+        }
     }
 
     private drawLine(start: Point, end: Point): Observable<LineCoordinate<unknown>> {
