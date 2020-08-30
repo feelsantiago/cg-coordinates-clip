@@ -54,7 +54,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     public drawPixel(point: Point): void {
         const { x, y } = point;
         this.canvasContext.fillStyle = 'black';
-        // this.canvasContext.fillRect(x + 250, 250 - y, 3, 3);
         this.canvasContext.fillRect(x, y, 3, 3);
     }
 
