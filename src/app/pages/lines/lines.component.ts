@@ -20,9 +20,9 @@ export class LinesComponent implements OnInit, AfterViewInit {
     @ViewChild(CanvasComponent)
     public canvas: CanvasComponent;
 
-    public canvasWidth: 500;
+    public canvasWidth = 500;
 
-    public canvasHeight: 500;
+    public canvasHeight = 500;
 
     public algorithm: LineAlgorithm = LineAlgorithm.DDA;
 
