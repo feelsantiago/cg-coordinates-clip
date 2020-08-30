@@ -8,6 +8,10 @@ export interface DdaMetadata {
     yIncrement: number;
 }
 
+export interface PmMetadata {
+    d: number;
+}
+
 export interface LineCoordinate<T> {
     point: Point;
     metadata: T;

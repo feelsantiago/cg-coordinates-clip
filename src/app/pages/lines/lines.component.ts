@@ -4,7 +4,7 @@ import { Point } from '../../types/coordinates';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { LineService } from '../../services/line.service';
-import { DdaMetadata, LineCoordinate } from '../../types/lines';
+import { DdaMetadata, LineCoordinate, PmMetadata } from '../../types/lines';
 
 enum LineAlgorithm {
     DDA = 'dda',
@@ -24,6 +24,10 @@ export class LinesComponent implements OnInit, AfterViewInit {
 
     public ddaMetadata: DdaMetadata;
 
+    public pmMetadata: PmMetadata;
+
+    public point: Point;
+
     private lastPointDraw: Point;
 
     constructor(private readonly lineService: LineService, private readonly coordinateService: CoordinatesService) {}
@@ -41,7 +45,9 @@ export class LinesComponent implements OnInit, AfterViewInit {
 
         if (this.isDiffPoint(this.lastPointDraw, point)) {
             this.drawLine(this.lastPointDraw, point).subscribe((coordinates) => {
-                this.ddaMetadata = coordinates.metadata as DdaMetadata;
+                this.extractMetadata(coordinates.metadata);
+                this.point = coordinates.point;
+
                 this.canvas.drawPixel(coordinates.point);
             });
         }
@@ -61,6 +67,14 @@ export class LinesComponent implements OnInit, AfterViewInit {
         }
 
         return this.lineService.pm(start, end);
+    }
+
+    private extractMetadata(metadata: unknown): void {
+        if (this.algorithm === LineAlgorithm.DDA) {
+            this.ddaMetadata = metadata as DdaMetadata;
+        } else {
+            this.pmMetadata = metadata as PmMetadata;
+        }
     }
 
     private isDiffPoint(pointA: Point, pointB: Point): boolean {

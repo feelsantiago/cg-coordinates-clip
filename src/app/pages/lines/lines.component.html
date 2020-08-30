@@ -19,6 +19,10 @@
     <button (click)="onCleanCanvasHandle()">Limpar Canvas</button>
 
     <div *ngIf="algorithm === 'dda'">
-        <app-line-dda-result [metadata]="ddaMetadata"></app-line-dda-result>
+        <app-line-dda-result [metadata]="ddaMetadata" [point]="point"></app-line-dda-result>
+    </div>
+
+    <div *ngIf="algorithm === 'pm'">
+        <app-line-pm-result [metadata]="pmMetadata" [point]="point"></app-line-pm-result>
     </div>
 </div>

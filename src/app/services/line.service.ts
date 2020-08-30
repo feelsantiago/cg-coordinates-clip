@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Point } from '../types/coordinates';
-import { DdaMetadata, LineCoordinate } from '../types/lines';
+import { DdaMetadata, LineCoordinate, PmMetadata } from '../types/lines';
 
 @Injectable({ providedIn: 'root' })
 export class LineService {
@@ -12,18 +12,18 @@ export class LineService {
         });
     }
 
-    public pm(start: Point, end: Point): Observable<LineCoordinate<unknown>> {
-        return new Observable<LineCoordinate<unknown>>((subscriber) => {
-            this.calculatePm(start, end, (point) => subscriber.next({ point, metadata: '' }));
+    public pm(start: Point, end: Point): Observable<LineCoordinate<PmMetadata>> {
+        return new Observable<LineCoordinate<PmMetadata>>((subscriber) => {
+            this.calculatePm(start, end, (point, metadata) => subscriber.next({ point, metadata }));
             subscriber.complete();
         });
     }
 
-    private calculatePm(start: Point, end: Point, setPixel: (point: Point) => void): void {
+    private calculatePm(start: Point, end: Point, setPixel: (point: Point, metadata: PmMetadata) => void): void {
         let { x, y } = start;
 
         if (x === end.x && y === end.y) {
-            setPixel({ x, y });
+            setPixel({ x, y }, { d: 0 });
         } else {
             const dx = Math.abs(end.x - start.x);
             const dy = Math.abs(end.y - start.y);
@@ -40,22 +40,24 @@ export class LineService {
                 yIncrement = -1;
             }
 
-            setPixel({ x, y });
+            let d = 2 * slope;
+
+            setPixel({ x, y }, { d });
 
             while (x !== end.x || y !== end.y) {
-                const p = 2 * slope;
+                d = 2 * slope;
 
-                if (p > -dy) {
+                if (d > -dy) {
                     slope -= dy;
                     x += xIncrement;
                 }
 
-                if (p < dx) {
+                if (d < dx) {
                     slope += dx;
                     y += yIncrement;
                 }
 
-                setPixel({ x, y });
+                setPixel({ x, y }, { d });
             }
         }
     }

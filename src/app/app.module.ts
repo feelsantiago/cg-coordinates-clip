@@ -15,6 +15,7 @@ import { DrawComponent } from './pages/draw/draw.component';
 import { LinesComponent } from './pages/lines/lines.component';
 import { CirclesComponent } from './pages/cicles/circles.component';
 import { LineDdaResultComponent } from './components/line-dda-result/line-dda-result.component';
+import { LinePmResultComponent } from './components/line-pm-result/line-pm-result.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { LineDdaResultComponent } from './components/line-dda-result/line-dda-re
         LinesComponent,
         CirclesComponent,
         LineDdaResultComponent,
+        LinePmResultComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],

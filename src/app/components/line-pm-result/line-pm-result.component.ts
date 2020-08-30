@@ -1,16 +1,16 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { Point, ViewPort, NormalizedRange } from '../../types/coordinates';
-import { DdaMetadata } from '../../types/lines';
+import { PmMetadata } from '../../types/lines';
 
 @Component({
-    selector: 'app-line-dda-result',
-    templateUrl: './line-dda-result.component.html',
-    styleUrls: ['./line-dda-result.component.scss'],
+    selector: 'app-line-pm-result',
+    templateUrl: './line-pm-result.component.html',
+    styleUrls: ['./line-pm-result.component.scss'],
 })
-export class LineDdaResultComponent {
+export class LinePmResultComponent implements OnChanges {
     @Input()
-    public metadata: DdaMetadata;
+    public metadata: PmMetadata;
 
     @Input()
     public point: Point;
