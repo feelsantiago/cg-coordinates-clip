@@ -30,6 +30,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     @Output()
     public onMouseStartDrawing: EventEmitter<MouseCoordinatesEvent>;
 
+    @Output()
+    public onMouseFinishDrawing: EventEmitter<MouseCoordinatesEvent>;
+
     private canvas: HTMLCanvasElement;
 
     private isMouseOnCanvas = false;
@@ -43,6 +46,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.onMouseLeavesCanvas = new EventEmitter();
         this.onMouseMoveOnCanvas = new EventEmitter();
         this.onMouseStartDrawing = new EventEmitter();
+        this.onMouseFinishDrawing = new EventEmitter();
     }
 
     public ngOnInit(): void {}
@@ -104,6 +108,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.canvas.addEventListener('mouseup', () => {
             this.isMouseClicked = false;
+            this.onMouseFinishDrawing.emit();
         });
 
         this.canvas.addEventListener('mousedown', (event: MouseEvent) => {

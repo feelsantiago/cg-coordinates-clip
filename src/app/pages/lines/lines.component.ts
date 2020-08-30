@@ -26,6 +26,8 @@ export class LinesComponent implements OnInit, AfterViewInit {
     }
 
     public onMouseStartDrawingHandle(point: Point): void {
+        this.onCleanCanvasHandle();
+
         if (!this.lastPointDraw) {
             this.lastPointDraw = point;
         }
@@ -35,6 +37,10 @@ export class LinesComponent implements OnInit, AfterViewInit {
                 this.canvas.drawPixel(pointDDA);
             });
         }
+    }
+
+    public onMouseFinishDrawingHandle(): void {
+        this.lastPointDraw = undefined;
     }
 
     public onCleanCanvasHandle(): void {
