@@ -12,13 +12,51 @@ export class LineService {
         });
     }
 
+    public pm(start: Point, end: Point): Observable<Point> {
+        return new Observable<Point>((subscriber) => {
+            this.calculatePm(start, end, (point) => subscriber.next(point));
+            subscriber.complete();
+        });
+    }
+
+    private calculatePm(start: Point, end: Point, setPixel: (point: Point) => void): void {
+        const dx = Math.abs(end.x - start.x);
+        const dy = Math.abs(end.y - start.y);
+
+        const eIncrement = 2 * dy;
+        const neIncrement = 2 * (dy - dx);
+
+        let increment = 2 * dy - dx;
+        let { x, y } = start;
+        let xEnd = end.x;
+
+        if (x > xEnd) {
+            x = end.x;
+            y = end.y;
+            xEnd = x;
+        }
+
+        setPixel({ x, y });
+
+        while (x < xEnd) {
+            x++;
+            if (increment < 0) {
+                increment += eIncrement;
+            } else {
+                y++;
+                increment = neIncrement;
+            }
+
+            setPixel({ x, y });
+        }
+    }
+
     private calculateDda(start: Point, end: Point, setPixel: (point: Point, metadata?: DdaMetadata) => void): void {
         const dx = end.x - start.x;
         const dy = end.y - start.y;
 
         let steps: number;
-        let { x } = start;
-        let { y } = start;
+        let { x, y } = start;
 
         if (Math.abs(dx) > Math.abs(dy)) steps = Math.abs(dx);
         else steps = Math.abs(dy);
