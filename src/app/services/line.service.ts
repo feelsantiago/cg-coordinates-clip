@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Point } from '../types/coordinates';
+import { DDAMetadata, LineCoordinate } from '../types/lines';
 
 @Injectable({ providedIn: 'root' })
 export class LineService {
-    public dda(start: Point, end: Point): Observable<Point> {
-        return new Observable<Point>((subscriber) => {
-            this.calculateDDA(start, end, (point) => subscriber.next(point));
+    public dda(start: Point, end: Point): Observable<LineCoordinate<DDAMetadata>> {
+        return new Observable<LineCoordinate<DDAMetadata>>((subscriber) => {
+            this.calculateDDA(start, end, (point, metadata) => subscriber.next({ point, metadata }));
             subscriber.complete();
         });
     }
 
-    private calculateDDA(start: Point, end: Point, setPixel: (point: Point) => void): void {
+    private calculateDDA(start: Point, end: Point, setPixel: (point: Point, metadata?: DDAMetadata) => void): void {
         const dx = end.x - start.x;
         const dy = end.y - start.y;
 
@@ -25,13 +26,24 @@ export class LineService {
         const xIncrement = dx / steps;
         const yIncrement = dy / steps;
 
-        setPixel({ x: this.round(x), y: this.round(y) });
+        const metadata: DDAMetadata = {
+            dx,
+            dy,
+            steps,
+            xIncrement,
+            yIncrement,
+        };
+
+        setPixel({ x: this.round(x), y: this.round(y) }, metadata);
 
         for (let i = 0; i < steps; i++) {
             x += xIncrement;
             y += yIncrement;
 
-            setPixel({ x: this.round(x), y: this.round(y) });
+            metadata.xIncrement = xIncrement;
+            metadata.yIncrement = yIncrement;
+
+            setPixel({ x: this.round(x), y: this.round(y) }, metadata);
         }
     }
 
