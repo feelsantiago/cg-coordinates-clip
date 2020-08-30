@@ -1,4 +1,15 @@
 <div>
+    <div class="control">
+        <label class="radio">
+            <input type="radio" name="algorithm" [(ngModel)]="algorithm" [value]="'dda'" />
+            DDA
+        </label>
+        <label class="radio">
+            <input type="radio" name="algorithm" [(ngModel)]="algorithm" [value]="'pm'" />
+            P.M.
+        </label>
+    </div>
+
     <app-canvas
         [width]="500"
         [height]="500"
@@ -6,5 +17,8 @@
         (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"
     ></app-canvas>
     <button (click)="onCleanCanvasHandle()">Limpar Canvas</button>
-    <app-line-dda-result [metadata]="ddaMetadata"></app-line-dda-result>
+
+    <div *ngIf="algorithm === 'dda'">
+        <app-line-dda-result [metadata]="ddaMetadata"></app-line-dda-result>
+    </div>
 </div>

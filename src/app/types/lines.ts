@@ -8,7 +8,7 @@ export interface DdaMetadata {
     yIncrement: number;
 }
 
-export interface LineCoordinate<T extends DdaMetadata> {
+export interface LineCoordinate<T> {
     point: Point;
     metadata: T;
 }

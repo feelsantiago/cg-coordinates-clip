@@ -12,42 +12,51 @@ export class LineService {
         });
     }
 
-    public pm(start: Point, end: Point): Observable<Point> {
-        return new Observable<Point>((subscriber) => {
-            this.calculatePm(start, end, (point) => subscriber.next(point));
+    public pm(start: Point, end: Point): Observable<LineCoordinate<unknown>> {
+        return new Observable<LineCoordinate<unknown>>((subscriber) => {
+            this.calculatePm(start, end, (point) => subscriber.next({ point, metadata: '' }));
             subscriber.complete();
         });
     }
 
     private calculatePm(start: Point, end: Point, setPixel: (point: Point) => void): void {
-        const dx = Math.abs(end.x - start.x);
-        const dy = Math.abs(end.y - start.y);
-
-        const eIncrement = 2 * dy;
-        const neIncrement = 2 * (dy - dx);
-
-        let increment = 2 * dy - dx;
         let { x, y } = start;
-        let xEnd = end.x;
 
-        if (x > xEnd) {
-            x = end.x;
-            y = end.y;
-            xEnd = x;
-        }
+        if (x === end.x && y === end.y) {
+            setPixel({ x, y });
+        } else {
+            const dx = Math.abs(end.x - start.x);
+            const dy = Math.abs(end.y - start.y);
+            let slope = dx - dy;
 
-        setPixel({ x, y });
+            let xIncrement = 1;
+            let yIncrement = 1;
 
-        while (x < xEnd) {
-            x++;
-            if (increment < 0) {
-                increment += eIncrement;
-            } else {
-                y++;
-                increment = neIncrement;
+            if (x > end.x) {
+                xIncrement = -1;
+            }
+
+            if (y > end.y) {
+                yIncrement = -1;
             }
 
             setPixel({ x, y });
+
+            while (x !== end.x || y !== end.y) {
+                const p = 2 * slope;
+
+                if (p > -dy) {
+                    slope -= dy;
+                    x += xIncrement;
+                }
+
+                if (p < dx) {
+                    slope += dx;
+                    y += yIncrement;
+                }
+
+                setPixel({ x, y });
+            }
         }
     }
 
