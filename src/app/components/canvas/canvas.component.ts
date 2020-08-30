@@ -26,9 +26,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     @Output()
     public onMouseMoveOnCanvas: EventEmitter<MouseCoordinatesEvent>;
 
+    @Output()
+    public onMouseStartDrawing: EventEmitter<MouseCoordinatesEvent>;
+
     private canvas: HTMLCanvasElement;
 
     private isMouseOnCanvas = false;
+
+    private isMouseClicked = false;
 
     private canvasContext: CanvasRenderingContext2D;
 
@@ -36,6 +41,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.onMouseEnterCanvas = new EventEmitter();
         this.onMouseLeavesCanvas = new EventEmitter();
         this.onMouseMoveOnCanvas = new EventEmitter();
+        this.onMouseStartDrawing = new EventEmitter();
     }
 
     public ngOnInit(): void {}
@@ -43,7 +49,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     public drawPixel(point: Point): void {
         const { x, y } = point;
         this.canvasContext.fillStyle = 'black';
-        this.canvasContext.fillRect(x + 250, 250 - y, 3, 3);
+        // this.canvasContext.fillRect(x + 250, 250 - y, 3, 3);
+        this.canvasContext.fillRect(x, y, 3, 3);
     }
 
     public clean(): void {
@@ -86,6 +93,20 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.canvas.addEventListener('mousemove', (event: MouseEvent) => {
             const { x, y } = event;
             this.onMouseMoveOnCanvas.emit({ x, y });
+
+            if (this.isMouseClicked && this.isMouseOnCanvas) {
+                this.onMouseStartDrawing.emit({ x, y });
+            }
+        });
+
+        this.canvas.addEventListener('mouseup', () => {
+            this.isMouseClicked = false;
+        });
+
+        this.canvas.addEventListener('mousedown', (event: MouseEvent) => {
+            this.isMouseClicked = true;
+            const { x, y } = event;
+            this.onMouseStartDrawing.emit({ x, y });
         });
     }
 }

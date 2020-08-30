@@ -1,4 +1,4 @@
 <div>
-    <app-canvas [width]="500" [height]="500"></app-canvas>
+    <app-canvas [width]="500" [height]="500" (onMouseStartDrawing)="onMouseStartDrawingHandle($event)"></app-canvas>
     <button (click)="onCleanCanvasHandle()">Limpar Canvas</button>
 </div>
