@@ -1,0 +1,44 @@
+span {
+    font-size: 20px;
+    color: #363636;
+    font-weight: 600;
+    line-height: 1.125;
+}
+
+hr {
+    background-color: #ddd;
+}
+
+.input-coordinate {
+    input {
+        width: 100%;
+    }
+
+    .coordinate {
+        width: 60px !important;
+    }
+}
+
+.group {
+    margin: 15px 7px;
+}
+
+.dda-inputs {
+    .transform-btn {
+        margin-top: 20px;
+
+        button {
+            width: 100%;
+            height: 40px;
+            color: #ec561a;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ec561a;
+
+            &:hover {
+                color: white;
+                background-color: #ec561a;
+            }
+        }
+    }
+}
