@@ -11,6 +11,7 @@ import { CanvasComponent } from './components/canvas/canvas.component';
 import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-view-port.component';
 import { InterpolationResultComponent } from './components/interpolation-result/interpolation-result.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DrawComponent } from './pages/draw/draw.component';
 
 @NgModule({
     declarations: [
@@ -23,9 +24,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         CanvasComponent,
         CanvasViewPortComponent,
         InterpolationResultComponent,
+        DrawComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
