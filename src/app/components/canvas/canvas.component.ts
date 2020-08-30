@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Point } from '../../types/coordinates';
 import { MouseCoordinatesEvent } from '../../types/events';
 
 @Component({
@@ -29,6 +30,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     private isMouseOnCanvas = false;
 
+    private canvasContext: CanvasRenderingContext2D;
+
     constructor() {
         this.onMouseEnterCanvas = new EventEmitter();
         this.onMouseLeavesCanvas = new EventEmitter();
@@ -37,25 +40,31 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {}
 
+    public drawPixel(point: Point): void {
+        const { x, y } = point;
+        this.canvasContext.fillStyle = 'black';
+        this.canvasContext.fillRect(x + 250, 250 - y, 3, 3);
+    }
+
     public ngAfterViewInit(): void {
         this.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
+        this.canvasContext = this.canvas.getContext('2d');
 
         this.drawCartesianLines();
         this.initCanvasListeners();
     }
 
     private drawCartesianLines(): void {
-        const ctx = this.canvas.getContext('2d');
-        ctx.strokeStyle = '#ff0000';
+        this.canvasContext.strokeStyle = '#ff0000';
         // Y-Axis
-        ctx.moveTo(this.width / 2, 0);
-        ctx.lineTo(this.width / 2, this.height);
-        ctx.stroke();
+        this.canvasContext.moveTo(this.width / 2, 0);
+        this.canvasContext.lineTo(this.width / 2, this.height);
+        this.canvasContext.stroke();
 
         // X-Axis-Half
-        ctx.moveTo(0, this.height / 2);
-        ctx.lineTo(this.width, this.height / 2);
-        ctx.stroke();
+        this.canvasContext.moveTo(0, this.height / 2);
+        this.canvasContext.lineTo(this.width, this.height / 2);
+        this.canvasContext.stroke();
     }
 
     private initCanvasListeners(): void {

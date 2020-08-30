@@ -12,6 +12,8 @@ import { CanvasViewPortComponent } from './components/canvas-view-port/canvas-vi
 import { InterpolationResultComponent } from './components/interpolation-result/interpolation-result.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DrawComponent } from './pages/draw/draw.component';
+import { LinesComponent } from './pages/lines/lines.component';
+import { CirclesComponent } from './pages/cicles/circles.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,8 @@ import { DrawComponent } from './pages/draw/draw.component';
         CanvasViewPortComponent,
         InterpolationResultComponent,
         DrawComponent,
+        LinesComponent,
+        CirclesComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],
