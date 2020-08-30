@@ -21,4 +21,8 @@ export class LinesComponent implements OnInit, AfterViewInit {
             this.canvas.drawPixel(point);
         });
     }
+
+    public onCleanCanvasHandle(): void {
+        this.canvas.clean();
+    }
 }

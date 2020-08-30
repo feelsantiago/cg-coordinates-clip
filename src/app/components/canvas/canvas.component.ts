@@ -46,6 +46,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.canvasContext.fillRect(x + 250, 250 - y, 3, 3);
     }
 
+    public clean(): void {
+        this.canvasContext.clearRect(0, 0, this.width, this.height);
+        this.drawCartesianLines();
+    }
+
     public ngAfterViewInit(): void {
         this.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
         this.canvasContext = this.canvas.getContext('2d');
