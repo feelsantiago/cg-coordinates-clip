@@ -20,7 +20,11 @@ export class LinesComponent implements OnInit, AfterViewInit {
     @ViewChild(CanvasComponent)
     public canvas: CanvasComponent;
 
-    public algorithm: LineAlgorithm = LineAlgorithm.PM;
+    public canvasWidth: 500;
+
+    public canvasHeight: 500;
+
+    public algorithm: LineAlgorithm = LineAlgorithm.DDA;
 
     public ddaMetadata: DdaMetadata;
 
@@ -34,7 +38,18 @@ export class LinesComponent implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {}
 
-    public ngAfterViewInit(): void {}
+    public ngAfterViewInit(): void {
+        // Example code to transform device to world coordinates, to draw on canvas
+        const viewPort = {
+            x: { min: 0, max: 500 },
+            y: { min: 0, max: 500 },
+        };
+        const start = this.coordinateService.deviceToWorld({ x: -500, y: 0 }, viewPort);
+        const end = this.coordinateService.deviceToWorld({ x: 500, y: -500 }, viewPort);
+        this.lineService.pm(start, end).subscribe((coordinates) => {
+            this.canvas.drawPixel(coordinates.point);
+        });
+    }
 
     public onMouseStartDrawingHandle(point: Point): void {
         this.onCleanCanvasHandle();

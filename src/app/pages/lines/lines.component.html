@@ -11,8 +11,8 @@
     </div>
 
     <app-canvas
-        [width]="500"
-        [height]="500"
+        [width]="canvasWidth"
+        [height]="canvasHeight"
         (onMouseStartDrawing)="onMouseStartDrawingHandle($event)"
         (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"
     ></app-canvas>
