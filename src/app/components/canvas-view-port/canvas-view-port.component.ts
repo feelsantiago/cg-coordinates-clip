@@ -18,10 +18,6 @@ export class CanvasViewPortComponent implements AfterViewInit {
 
     private viewPort: ViewPort;
 
-    private viewPortOffSetLeft = 0;
-
-    private viewPortOffSetTop = 0;
-
     public canvas: ViewPort = {
         x: {
             min: 0,
@@ -40,13 +36,21 @@ export class CanvasViewPortComponent implements AfterViewInit {
 
     public ngAfterViewInit(): void {
         this.canvasViewPort = this.canvasViewPortRef.nativeElement as HTMLDivElement;
-        const viewPort = this.canvasViewPort.getBoundingClientRect();
-        this.viewPortOffSetLeft = viewPort.left;
-        this.viewPortOffSetTop = viewPort.top;
 
         this.canvasViewPort.addEventListener('mousemove', (mouse) => {
-            const x = mouse.x - this.viewPortOffSetLeft;
-            const y = mouse.y - this.viewPortOffSetTop;
+            // Always get the most recent boundary rect
+            const viewPort = this.canvasViewPort.getBoundingClientRect();
+            const viewPortOffSetLeft = viewPort.left;
+            const viewPortOffSetTop = viewPort.top;
+
+            const { x, y } = this.documentService.transformGlobalMouseCoordinatesToLocal(
+                {
+                    x: mouse.x,
+                    y: mouse.y,
+                },
+                viewPortOffSetTop,
+                viewPortOffSetLeft,
+            );
 
             this.coordinatesService.transformAndEmit(this.viewPort, this.canvas, { x, y }, NormalizedRange.center);
         });

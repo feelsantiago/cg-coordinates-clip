@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit, ElementRef, Output, EventEmitter } from '@angular/core';
+import { DocumentService } from '../../services/document.service';
 import { Point } from '../../types/coordinates';
 import { MouseCoordinatesEvent } from '../../types/events';
 
@@ -37,7 +38,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     private canvasContext: CanvasRenderingContext2D;
 
-    constructor() {
+    constructor(private readonly documentService: DocumentService) {
         this.onMouseEnterCanvas = new EventEmitter();
         this.onMouseLeavesCanvas = new EventEmitter();
         this.onMouseMoveOnCanvas = new EventEmitter();
@@ -92,10 +93,12 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.canvas.addEventListener('mousemove', (event: MouseEvent) => {
             const { x, y } = event;
-            this.onMouseMoveOnCanvas.emit({ x, y });
+            const point = this.getCanvasMouseCoordinates({ x, y });
+
+            this.onMouseMoveOnCanvas.emit(point);
 
             if (this.isMouseClicked && this.isMouseOnCanvas) {
-                this.onMouseStartDrawing.emit({ x, y });
+                this.onMouseStartDrawing.emit(point);
             }
         });
 
@@ -105,8 +108,23 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.canvas.addEventListener('mousedown', (event: MouseEvent) => {
             this.isMouseClicked = true;
+
             const { x, y } = event;
-            this.onMouseStartDrawing.emit({ x, y });
+            const point = this.getCanvasMouseCoordinates({ x, y });
+
+            this.onMouseStartDrawing.emit(point);
         });
+    }
+
+    private getCanvasMouseCoordinates(point: Point): Point {
+        const viewPort = this.canvas.getBoundingClientRect();
+        const viewPortOffSetLeft = viewPort.left;
+        const viewPortOffSetTop = viewPort.top;
+
+        return this.documentService.transformGlobalMouseCoordinatesToLocal(
+            point,
+            viewPortOffSetTop,
+            viewPortOffSetLeft,
+        );
     }
 }
