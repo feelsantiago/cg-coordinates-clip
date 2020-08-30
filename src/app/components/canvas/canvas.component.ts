@@ -51,6 +51,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {}
 
+    public ngAfterViewInit(): void {
+        this.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
+        this.canvasContext = this.canvas.getContext('2d');
+
+        this.drawCartesianLines();
+        this.initCanvasListeners();
+    }
+
     public drawPixel(point: Point): void {
         const { x, y } = point;
         this.canvasContext.fillStyle = 'black';
@@ -60,14 +68,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     public clean(): void {
         this.canvasContext.clearRect(0, 0, this.width, this.height);
         this.drawCartesianLines();
-    }
-
-    public ngAfterViewInit(): void {
-        this.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
-        this.canvasContext = this.canvas.getContext('2d');
-
-        this.drawCartesianLines();
-        this.initCanvasListeners();
     }
 
     private drawCartesianLines(): void {
