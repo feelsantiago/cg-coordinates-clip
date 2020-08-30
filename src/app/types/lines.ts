@@ -1,6 +1,6 @@
 import { Point } from './coordinates';
 
-export interface DDAMetadata {
+export interface DdaMetadata {
     dx: number;
     dy: number;
     steps: number;
@@ -8,7 +8,7 @@ export interface DDAMetadata {
     yIncrement: number;
 }
 
-export interface LineCoordinate<T extends DDAMetadata> {
+export interface LineCoordinate<T extends DdaMetadata> {
     point: Point;
     metadata: T;
 }

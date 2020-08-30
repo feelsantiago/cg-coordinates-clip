@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Point } from '../types/coordinates';
-import { DDAMetadata, LineCoordinate } from '../types/lines';
+import { DdaMetadata, LineCoordinate } from '../types/lines';
 
 @Injectable({ providedIn: 'root' })
 export class LineService {
-    public dda(start: Point, end: Point): Observable<LineCoordinate<DDAMetadata>> {
-        return new Observable<LineCoordinate<DDAMetadata>>((subscriber) => {
-            this.calculateDDA(start, end, (point, metadata) => subscriber.next({ point, metadata }));
+    public dda(start: Point, end: Point): Observable<LineCoordinate<DdaMetadata>> {
+        return new Observable<LineCoordinate<DdaMetadata>>((subscriber) => {
+            this.calculateDda(start, end, (point, metadata) => subscriber.next({ point, metadata }));
             subscriber.complete();
         });
     }
 
-    private calculateDDA(start: Point, end: Point, setPixel: (point: Point, metadata?: DDAMetadata) => void): void {
+    private calculateDda(start: Point, end: Point, setPixel: (point: Point, metadata?: DdaMetadata) => void): void {
         const dx = end.x - start.x;
         const dy = end.y - start.y;
 
@@ -26,7 +26,7 @@ export class LineService {
         const xIncrement = dx / steps;
         const yIncrement = dy / steps;
 
-        const metadata: DDAMetadata = {
+        const metadata: DdaMetadata = {
             dx,
             dy,
             steps,

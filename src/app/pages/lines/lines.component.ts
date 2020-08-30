@@ -3,6 +3,7 @@ import { Point } from '../../types/coordinates';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { LineService } from '../../services/line.service';
+import { DdaMetadata } from '../../types/lines';
 
 @Component({
     selector: 'app-lines',
@@ -12,6 +13,8 @@ import { LineService } from '../../services/line.service';
 export class LinesComponent implements OnInit, AfterViewInit {
     @ViewChild(CanvasComponent)
     public canvas: CanvasComponent;
+
+    public ddaMetadata: DdaMetadata;
 
     private lastPointDraw: Point;
 
@@ -33,8 +36,9 @@ export class LinesComponent implements OnInit, AfterViewInit {
         }
 
         if (this.isDiffPoint(this.lastPointDraw, point)) {
-            this.lineService.dda(this.lastPointDraw, point).subscribe((pointDDA) => {
-                this.canvas.drawPixel(pointDDA);
+            this.lineService.dda(this.lastPointDraw, point).subscribe((coordinates) => {
+                this.ddaMetadata = coordinates.metadata;
+                this.canvas.drawPixel(coordinates.point);
             });
         }
     }
