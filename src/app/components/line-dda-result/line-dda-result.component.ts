@@ -1,5 +1,7 @@
 import { Component, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SubSink } from 'subsink';
+import { ViewService } from '../../services/view.service';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { Point, ViewPort, NormalizedRange } from '../../types/coordinates';
 import { DdaMetadata } from '../../types/lines';
@@ -37,8 +39,15 @@ export class LineDdaResultComponent {
 
     public ddaForm: FormGroup;
 
-    constructor(private readonly fb: FormBuilder, private readonly coordinateService: CoordinatesService) {
+    private subscriptions: SubSink;
+
+    constructor(
+        private readonly fb: FormBuilder,
+        private readonly coordinateService: CoordinatesService,
+        private readonly viewService: ViewService,
+    ) {
         this.onDrawLine = new EventEmitter();
+        this.subscriptions = new SubSink();
     }
 
     public ngOnInit(): void {
@@ -47,13 +56,12 @@ export class LineDdaResultComponent {
         this.point = { x: 0, y: 0 };
         this.startPoint = { x: 0, y: 0 };
 
-        this.metadata = {
-            dx: 0,
-            dy: 0,
-            steps: 0,
-            xIncrement: 0,
-            yIncrement: 0,
-        };
+        this.metadata = this.getInitialMetadata();
+
+        this.viewService.clean$.subscribe(() => {
+            this.ddaForm.reset();
+            this.metadata = this.getInitialMetadata();
+        });
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -112,6 +120,16 @@ export class LineDdaResultComponent {
                 min: 0,
                 max: this.viewPortHeight,
             },
+        };
+    }
+
+    private getInitialMetadata(): DdaMetadata {
+        return {
+            dx: 0,
+            dy: 0,
+            steps: 0,
+            xIncrement: 0,
+            yIncrement: 0,
         };
     }
 }

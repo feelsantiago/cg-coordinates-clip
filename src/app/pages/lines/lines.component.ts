@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ViewService } from '../../services/view.service';
 import { DdaFormValue } from '../../components/line-dda-result/line-dda-result.component';
 import { Point } from '../../types/coordinates';
 import { CoordinatesService } from '../../services/coordinates.service';
@@ -37,7 +38,11 @@ export class LinesComponent implements OnInit {
 
     private isNewDraw = true;
 
-    constructor(private readonly lineService: LineService, private readonly coordinateService: CoordinatesService) {}
+    constructor(
+        private readonly lineService: LineService,
+        private readonly coordinateService: CoordinatesService,
+        private readonly viewService: ViewService,
+    ) {}
 
     public ngOnInit(): void {}
 
@@ -65,6 +70,7 @@ export class LinesComponent implements OnInit {
 
     public onCleanCanvasHandle(): void {
         this.canvas.clean();
+        this.viewService.clean();
     }
 
     public onDrawLineHandle(points: DdaFormValue): void {
