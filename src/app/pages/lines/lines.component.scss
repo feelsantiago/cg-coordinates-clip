@@ -1,0 +1,50 @@
+.radio-toolbar {
+    input {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+
+        &:checked + label {
+            color: white;
+            background-color: #ff7d00;
+        }
+    }
+}
+
+label {
+    display: inline-block;
+    background-color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ff7d00;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:hover {
+        color: white;
+        background-color: #ff7b00d7;
+    }
+}
+
+button {
+    width: 100%;
+    height: 46px;
+    color: #ec561a;
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid #ec561a;
+
+    &:hover {
+        color: white;
+        background-color: #ec561a;
+        outline: none;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: none !important;
+        border: 1px solid #ec561a;
+        background-color: #ee7545;
+        color: white;
+    }
+}
