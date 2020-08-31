@@ -20,10 +20,6 @@ export class LineDdaResultComponent {
     @Output()
     public onDrawLine: EventEmitter<DdaFixValue>;
 
-    constructor(private readonly fb: FormBuilder, private readonly coordinateService: CoordinatesService) {
-        this.onDrawLine = new EventEmitter;
-    }
-
     public ddaForm: FormGroup;
 
     private viewPort: ViewPort = {
@@ -36,6 +32,10 @@ export class LineDdaResultComponent {
             max: 500,
         },
     };
+
+    constructor(private readonly fb: FormBuilder, private readonly coordinateService: CoordinatesService) {
+        this.onDrawLine = new EventEmitter;
+    }
 
     public ngOnInit(): void {
         this.initForm();
@@ -55,6 +55,11 @@ export class LineDdaResultComponent {
         this.transformPoint(changes.point.currentValue);
     }
 
+    public onFormSubmit(): void {
+        const value = this.ddaForm.value as DdaFixValue;
+        this.onDrawLine.emit(value);
+    }
+
     private transformPoint(point: Point): void {
         if (point) {
             this.point = this.coordinateService.transformWorldToDevice(
@@ -64,11 +69,6 @@ export class LineDdaResultComponent {
                 NormalizedRange.center,
             );
         }
-    }
-
-    public onFormSubmit(): void {
-        const value = this.ddaForm.value as DdaFixValue;
-        this.onDrawLine.emit(value);
     }
 
     private initForm(): void {
