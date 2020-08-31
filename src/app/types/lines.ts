@@ -16,10 +16,3 @@ export interface LineCoordinate<T> {
     point: Point;
     metadata: T;
 }
-
-export interface DdaFixValue {
-    startPointX: number;
-    startPointY: number;
-    endPointX: number;
-    endPointY: number;
-}

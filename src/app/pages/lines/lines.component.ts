@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DdaFormValue } from '../../components/line-dda-result/line-dda-result.component';
 import { Point } from '../../types/coordinates';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { LineService } from '../../services/line.service';
-import { DdaMetadata, LineCoordinate, PmMetadata, DdaFixValue } from '../../types/lines';
+import { DdaMetadata, LineCoordinate, PmMetadata } from '../../types/lines';
 
 enum LineAlgorithm {
     DDA = 'dda',
@@ -32,21 +33,24 @@ export class LinesComponent implements OnInit {
 
     public point: Point;
 
-    private lastPointDraw: Point;
+    public startPoint: Point;
 
-    constructor(private readonly lineService: LineService, private readonly coordinateService: CoordinatesService) { }
+    private isNewDraw = true;
 
-    public ngOnInit(): void { }
+    constructor(private readonly lineService: LineService, private readonly coordinateService: CoordinatesService) {}
+
+    public ngOnInit(): void {}
 
     public onMouseStartDrawingHandle(point: Point): void {
         this.onCleanCanvasHandle();
 
-        if (!this.lastPointDraw) {
-            this.lastPointDraw = point;
+        if (this.isNewDraw) {
+            this.isNewDraw = false;
+            this.startPoint = point;
         }
 
-        if (this.isDiffPoint(this.lastPointDraw, point)) {
-            this.drawLine(this.lastPointDraw, point).subscribe((coordinates) => {
+        if (this.isDiffPoint(this.startPoint, point)) {
+            this.drawLine(this.startPoint, point).subscribe((coordinates) => {
                 this.extractMetadata(coordinates.metadata);
                 this.point = coordinates.point;
 
@@ -56,35 +60,33 @@ export class LinesComponent implements OnInit {
     }
 
     public onMouseFinishDrawingHandle(): void {
-        this.lastPointDraw = undefined;
+        this.isNewDraw = true;
     }
 
     public onCleanCanvasHandle(): void {
         this.canvas.clean();
     }
 
-    public onDrawLineHandle(points: DdaFixValue): void {
+    public onDrawLineHandle(points: DdaFormValue): void {
         this.canvas.clean();
         this.drawLineFixValues(points);
     }
 
-    private drawLineFixValues(points: DdaFixValue): void {
+    private drawLineFixValues(points: DdaFormValue): void {
         const viewPort = {
-            x: { min: 0, max: 500 },
-            y: { min: 0, max: 500 },
+            x: { min: 0, max: this.canvasWidth },
+            y: { min: 0, max: this.canvasHeight },
         };
+
         const start = this.coordinateService.deviceToWorld({ x: points.startPointX, y: points.startPointY }, viewPort);
         const end = this.coordinateService.deviceToWorld({ x: points.endPointX, y: points.endPointY }, viewPort);
 
-        if (this.algorithm === LineAlgorithm.DDA) {
-            this.lineService.dda(start, end).subscribe((coordinates) => {
-                this.canvas.drawPixel(coordinates.point);
-            });
-        } else {
-            this.lineService.pm(start, end).subscribe((coordinates) => {
-                this.canvas.drawPixel(coordinates.point);
-            });
-        }
+        this.drawLine(start, end).subscribe((coordinates) => {
+            this.extractMetadata(coordinates.metadata);
+            this.point = coordinates.point;
+
+            this.canvas.drawPixel(coordinates.point);
+        });
     }
 
     private drawLine(start: Point, end: Point): Observable<LineCoordinate<unknown>> {
