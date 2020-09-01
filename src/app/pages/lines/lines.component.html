@@ -1,12 +1,4 @@
 <div class="columns">
-    <div class="column">
-        <app-canvas
-            [width]="500"
-            [height]="500"
-            (onMouseStartDrawing)="onMouseStartDrawingHandle($event)"
-            (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"
-        ></app-canvas>
-    </div>
     <div class="column is-two-fifths">
         <div class="columns">
             <div class="column">
@@ -40,5 +32,13 @@
         <div *ngIf="algorithm === 'pm'">
             <app-line-pm-result [metadata]="pmMetadata" [point]="point"></app-line-pm-result>
         </div>
+    </div>
+    <div class="column">
+        <app-canvas
+            [width]="500"
+            [height]="500"
+            (onMouseStartDrawing)="onMouseStartDrawingHandle($event)"
+            (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"
+        ></app-canvas>
     </div>
 </div>
