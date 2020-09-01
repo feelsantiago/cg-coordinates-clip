@@ -46,11 +46,11 @@
         <div class="columns">
             <div class="column input-coordinate">
                 <div class="coordinate">dx</div>
-                <input type="number" disabled [value]="metadata.dx" />
+                <input type="number" disabled [value]="metadata.dx * 2" />
             </div>
             <div class="column input-coordinate">
                 <div class="coordinate">dy</div>
-                <input type="number" disabled [value]="metadata.dy * -1" />
+                <input type="number" disabled [value]="metadata.dy * 2 * -1" />
             </div>
         </div>
     </div>
