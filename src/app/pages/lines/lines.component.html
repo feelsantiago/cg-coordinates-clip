@@ -27,7 +27,8 @@
         </div>
 
         <div *ngIf="algorithm === 'pm'">
-            <app-line-pm-result></app-line-pm-result>
+            <!-- <app-line-pm-result></app-line-pm-result> -->
+            <app-line-pm-result [viewPortWidth]="canvasWidth" [viewPortHeight]="canvasHeight" [metadata]="pmMetadata" [point]="point" [startPoint]="startPoint" (onDrawLine)="onDrawLineHandle($event)"></app-line-pm-result>
         </div>
     </div>
     <div class="column">
