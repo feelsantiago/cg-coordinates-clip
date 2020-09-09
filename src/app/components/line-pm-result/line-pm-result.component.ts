@@ -1,19 +1,21 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SubSink } from 'subsink';
+import { ViewService } from '../../services/view.service';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { Point, ViewPort, NormalizedRange } from '../../types/coordinates';
-import { PmMetadata } from '../../types/lines';
+import { PmMetadata, LineCoordinate } from '../../types/lines';
 
 @Component({
     selector: 'app-line-pm-result',
     templateUrl: './line-pm-result.component.html',
     styleUrls: ['./line-pm-result.component.scss'],
 })
-export class LinePmResultComponent implements OnChanges {
-    @Input()
+export class LinePmResultComponent implements OnInit {
     public metadata: PmMetadata;
 
-    @Input()
     public point: Point;
+
+    private subscriptions: SubSink;
 
     private viewPort: ViewPort = {
         x: {
@@ -26,10 +28,15 @@ export class LinePmResultComponent implements OnChanges {
         },
     };
 
-    constructor(private readonly coordinateService: CoordinatesService) {}
+    constructor(private readonly coordinateService: CoordinatesService, private readonly viewService: ViewService) {
+        this.subscriptions = new SubSink();
+    }
 
-    public ngOnChanges(changes: SimpleChanges): void {
-        this.transformPoint(changes.point.currentValue);
+    public ngOnInit(): void {
+        this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
+            const { point, metadata, start } = coordinates as LineCoordinate<PmMetadata> & { start: Point };
+            this.transformPoint(point);
+        });
     }
 
     private transformPoint(point: Point): void {
