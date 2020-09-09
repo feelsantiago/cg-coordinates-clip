@@ -39,6 +39,8 @@
 
     .results {
         flex: 1;
+        max-height: 200px;
+        overflow-y: scroll;
 
         .result-table {
             border-collapse: collapse;
@@ -57,7 +59,6 @@
                 color: white;
                 padding-top: 7px;
             }
-
         }
     }
 }

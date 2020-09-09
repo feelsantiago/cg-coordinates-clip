@@ -1,10 +1,15 @@
-import { SubSink } from 'subsink';
-import { ViewService } from '../../services/view.service';
 import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SubSink } from 'subsink';
+import { ViewService } from '../../services/view.service';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { Point, ViewPort, NormalizedRange } from '../../types/coordinates';
 import { PmMetadata, LineCoordinate } from '../../types/lines';
+
+interface LinePoint {
+    point: Point;
+    d: number;
+}
 
 export interface PmFormValue {
     startPointX: number;
@@ -26,7 +31,7 @@ export class LinePmResultComponent implements OnInit {
     public point: Point;
 
     private subscriptions: SubSink;
-    
+
     @Input()
     public startPoint: Point;
 
@@ -41,6 +46,8 @@ export class LinePmResultComponent implements OnInit {
     @Output()
     public onDrawLine: EventEmitter<PmFormValue>;
 
+    public linePoints: LinePoint[];
+
     private viewPort: ViewPort = {
         x: {
             min: 0,
@@ -52,9 +59,14 @@ export class LinePmResultComponent implements OnInit {
         },
     };
 
-    constructor(private readonly coordinateService: CoordinatesService, private readonly viewService: ViewService, private readonly fb: FormBuilder) {
+    constructor(
+        private readonly coordinateService: CoordinatesService,
+        private readonly viewService: ViewService,
+        private readonly fb: FormBuilder,
+    ) {
         this.subscriptions = new SubSink();
         this.onDrawLine = new EventEmitter();
+        this.linePoints = [];
     }
 
     public ngOnInit(): void {
@@ -67,10 +79,11 @@ export class LinePmResultComponent implements OnInit {
         this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
             const { point, metadata, start } = coordinates as LineCoordinate<PmMetadata> & { start: Point };
 
-            this.point = this.transformPoint(point);
+            this.point = point;
             this.startPoint = this.transformPoint(start);
             this.metadata = metadata;
 
+            this.linePoints.push({ point, d: metadata.d });
 
             this.pmForm.setValue({
                 startPointX: this.startPoint.x,
@@ -79,8 +92,14 @@ export class LinePmResultComponent implements OnInit {
                 endPointY: this.point.y * -1,
             });
         });
+
+        this.viewService.clean$.subscribe(() => {
+            this.pmForm.reset();
+            this.metadata = this.getInitialMetadata();
+            this.linePoints = [];
+        });
     }
-    
+
     private initForm(): void {
         this.pmForm = this.fb.group({
             startPointX: [0, Validators.required],
@@ -91,6 +110,7 @@ export class LinePmResultComponent implements OnInit {
     }
 
     public onFormSubmit(): void {
+        this.linePoints = [];
         const value = this.pmForm.value as PmFormValue;
         this.onDrawLine.emit(value);
     }
@@ -99,7 +119,12 @@ export class LinePmResultComponent implements OnInit {
         let result: Point;
 
         if (point) {
-            result = this.coordinateService.transformWorldToDevice(this.viewPort, this.viewPort, point, NormalizedRange.center);
+            result = this.coordinateService.transformWorldToDevice(
+                this.viewPort,
+                this.viewPort,
+                point,
+                NormalizedRange.center,
+            );
         }
 
         return result;

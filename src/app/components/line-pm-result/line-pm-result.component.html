@@ -47,16 +47,20 @@
 <div class="pm-results transformation-result">
     <div class="results">
         <table class="result-table">
-            <tr>
-                <th>x</th>
-                <th>y</th>
-                <th>d</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr> 
+            <thead>
+                <tr>
+                    <th>d</th>
+                    <th>x</th>
+                    <th>y</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of linePoints">
+                    <td>{{ item.d }}</td>
+                    <td>{{ item.point.x.toFixed(2) }}</td>
+                    <td>{{ item.point.y.toFixed(2) }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
