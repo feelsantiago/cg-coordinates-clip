@@ -1,10 +1,10 @@
-import { Component, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { ViewService } from '../../services/view.service';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { Point, ViewPort, NormalizedRange } from '../../types/coordinates';
-import { DdaMetadata } from '../../types/lines';
+import { DdaMetadata, LineCoordinate } from '../../types/lines';
 
 export interface DdaFormValue {
     startPointX: number;
@@ -20,15 +20,6 @@ export interface DdaFormValue {
 })
 export class LineDdaResultComponent {
     @Input()
-    public metadata: DdaMetadata;
-
-    @Input()
-    public point: Point;
-
-    @Input()
-    public startPoint: Point;
-
-    @Input()
     public viewPortWidth: number;
 
     @Input()
@@ -36,6 +27,12 @@ export class LineDdaResultComponent {
 
     @Output()
     public onDrawLine: EventEmitter<DdaFormValue>;
+
+    public startPoint: Point;
+
+    public point: Point;
+
+    public metadata: DdaMetadata;
 
     public ddaForm: FormGroup;
 
@@ -55,34 +52,27 @@ export class LineDdaResultComponent {
 
         this.point = { x: 0, y: 0 };
         this.startPoint = { x: 0, y: 0 };
-
         this.metadata = this.getInitialMetadata();
 
-        this.viewService.clean$.subscribe(() => {
+        this.subscriptions.sink = this.viewService.clean$.subscribe(() => {
             this.ddaForm.reset();
             this.metadata = this.getInitialMetadata();
         });
-    }
 
-    public ngOnChanges(changes: SimpleChanges): void {
-        const { point, startPoint } = changes;
+        this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
+            const { point, metadata, start } = coordinates as LineCoordinate<DdaMetadata> & { start: Point };
 
-        if (point && point.currentValue) {
-            this.point = this.transformPoint(point.currentValue);
-        }
+            this.point = this.transformPoint(point);
+            this.startPoint = this.transformPoint(start);
+            this.metadata = metadata;
 
-        if (startPoint && startPoint.currentValue) {
-            this.startPoint = this.transformPoint(startPoint.currentValue);
-        }
-
-        if (this.ddaForm) {
             this.ddaForm.setValue({
                 startPointX: this.startPoint.x,
                 startPointY: this.startPoint.y * -1,
                 endPointX: this.point.x,
                 endPointY: this.point.y * -1,
             });
-        }
+        });
     }
 
     public onFormSubmit(): void {

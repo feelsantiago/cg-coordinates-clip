@@ -59,6 +59,11 @@ export class LinesComponent implements OnInit {
                 this.extractMetadata(coordinates.metadata);
                 this.point = coordinates.point;
 
+                this.viewService.sendMetadata({
+                    point: this.point,
+                    metadata: coordinates.metadata,
+                    start: this.startPoint,
+                });
                 this.canvas.drawPixel(coordinates.point);
             });
         }
@@ -91,6 +96,7 @@ export class LinesComponent implements OnInit {
             this.extractMetadata(coordinates.metadata);
             this.point = coordinates.point;
 
+            this.viewService.sendMetadata({ point: end, metadata: coordinates.metadata, start });
             this.canvas.drawPixel(coordinates.point);
         });
     }
