@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { ViewService } from '../../services/view.service';
@@ -79,11 +79,11 @@ export class LinePmResultComponent implements OnInit {
         this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
             const { point, metadata, start } = coordinates as LineCoordinate<PmMetadata> & { start: Point };
 
-            this.point = point;
+            this.point = this.transformPoint(point);
             this.startPoint = this.transformPoint(start);
             this.metadata = metadata;
 
-            this.linePoints.push({ point, d: metadata.d });
+            this.linePoints.push({ point: this.point, d: metadata.d });
 
             this.pmForm.setValue({
                 startPointX: this.startPoint.x,

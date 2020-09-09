@@ -96,7 +96,10 @@ export class LinesComponent implements OnInit {
             this.extractMetadata(coordinates.metadata);
             this.point = coordinates.point;
 
-            this.viewService.sendMetadata({ point: end, metadata: coordinates.metadata, start });
+            // On PM Algorithm we want to show every point on screen
+            const point = this.algorithm === LineAlgorithm.PM ? this.point : end;
+
+            this.viewService.sendMetadata({ point, metadata: coordinates.metadata, start });
             this.canvas.drawPixel(coordinates.point);
         });
     }
