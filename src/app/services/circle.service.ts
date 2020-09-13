@@ -42,7 +42,7 @@ export class CircleService {
         let x = 0;
         const xEnd = radius / Math.sqrt(2);
 
-        while (x < xEnd) {
+        while (x <= xEnd) {
             const y = Math.sqrt(radius ** 2 - x ** 2);
             setPixels(this.getCirclePoints({ x: Math.round(x), y: Math.round(y) }));
             x++;
@@ -52,7 +52,7 @@ export class CircleService {
     private calculateTrigonometric(radius: number, setPixels: (points: Point[]) => void): void {
         let teta = 0;
 
-        while (teta < 45) {
+        while (teta <= 45) {
             const x = radius * Math.cos(teta);
             const y = radius * Math.sin(teta);
             setPixels(this.getCirclePoints({ x: Math.round(x), y: Math.round(y) }));

@@ -24,7 +24,7 @@ export class CirclesComponent {
 
     public canvasHeight = 500;
 
-    public startPoint: Point;
+    public centerPoint: Point;
 
     public algorithm: CircleAlgorithm = CircleAlgorithm.polynomial;
 
@@ -36,16 +36,16 @@ export class CirclesComponent {
         this.onCleanCanvasHandle();
         if (this.isNewDraw) {
             this.isNewDraw = false;
-            this.startPoint = endPoint;
+            this.centerPoint = endPoint;
         }
 
-        if (this.isDiffPoint(this.startPoint, endPoint)) {
-            const radius = this.circleService.calculateRadius(this.startPoint, endPoint);
+        if (this.isDiffPoint(this.centerPoint, endPoint)) {
+            const radius = this.circleService.calculateRadius(this.centerPoint, endPoint);
 
             this.drawCircle(radius).subscribe((points) => {
                 points.forEach((point) => {
                     const { x, y } = point;
-                    this.canvas.drawPixel({ x: x + this.startPoint.x, y: y + this.startPoint.y });
+                    this.canvas.drawPixel({ x: x + this.centerPoint.x, y: y + this.centerPoint.y });
                 });
             });
         }
