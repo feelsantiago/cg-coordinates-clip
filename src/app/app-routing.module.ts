@@ -4,7 +4,7 @@ import { TransformationComponent } from './pages/transformation/transformation.c
 import { InterpolationComponent } from './pages/interpolation/interpolation.component';
 import { DrawComponent } from './pages/draw/draw.component';
 import { LinesComponent } from './pages/lines/lines.component';
-import { CirclesComponent } from './pages/cicles/circles.component';
+import { CirclesComponent } from './pages/circles/circles.component';
 
 const routes: Routes = [
     {
