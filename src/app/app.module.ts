@@ -13,7 +13,7 @@ import { InterpolationResultComponent } from './components/interpolation-result/
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DrawComponent } from './pages/draw/draw.component';
 import { LinesComponent } from './pages/lines/lines.component';
-import { CirclesComponent } from './pages/cicles/circles.component';
+import { CirclesComponent } from './pages/circles/circles.component';
 import { LineDdaResultComponent } from './components/line-dda-result/line-dda-result.component';
 import { LinePmResultComponent } from './components/line-pm-result/line-pm-result.component';
 
