@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CircleCoordinate, PolynomialMetadata, TrigonometricMetadata } from '../../types/circle';
+import { PmMetadata } from '../../types/lines';
 import { Point } from '../../types/coordinates';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { CircleService } from '../../services/circle.service';
@@ -42,11 +44,15 @@ export class CirclesComponent {
         if (this.isDiffPoint(this.centerPoint, endPoint)) {
             const radius = this.circleService.calculateRadius(this.centerPoint, endPoint);
 
-            this.drawCircle(radius).subscribe((points) => {
+            this.drawCircle(radius).subscribe((result) => {
+                const { points } = result;
+
                 points.forEach((point) => {
                     const { x, y } = point;
                     this.canvas.drawPixel({ x: x + this.centerPoint.x, y: y + this.centerPoint.y });
                 });
+
+                this.viewService.sendMetadata(result);
             });
         }
     }
@@ -60,7 +66,9 @@ export class CirclesComponent {
         this.viewService.clean();
     }
 
-    private drawCircle(radius: number): Observable<Point[]> {
+    private drawCircle(
+        radius: number,
+    ): Observable<CircleCoordinate<PolynomialMetadata | TrigonometricMetadata | PmMetadata>> {
         switch (this.algorithm) {
             case CircleAlgorithm.polynomial:
                 return this.circleService.polynomial(radius);
