@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PolyFormValue } from '../../components/circle-poly-result/circle-poly-result.component';
 import { CircleCoordinate, PolynomialMetadata, TrigonometricMetadata } from '../../types/circle';
 import { PmMetadata } from '../../types/lines';
 import { Point } from '../../types/coordinates';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { CircleService } from '../../services/circle.service';
 import { ViewService } from '../../services/view.service';
+import { CoordinatesService } from '../../services/coordinates.service';
 
 enum CircleAlgorithm {
     pm = 'pm',
@@ -30,9 +32,19 @@ export class CirclesComponent {
 
     public algorithm: CircleAlgorithm = CircleAlgorithm.polynomial;
 
+    public polyMetadata: PolynomialMetadata;
+
+    public trigMetadata: TrigonometricMetadata;
+
+    public pmMetadata: PmMetadata;
+
     private isNewDraw = true;
 
-    constructor(private readonly circleService: CircleService, private readonly viewService: ViewService) {}
+    constructor(
+        private readonly circleService: CircleService,
+        private readonly coordinateService: CoordinatesService,
+        private readonly viewService: ViewService,
+    ) {}
 
     public onMouseStartDrawingHandle(endPoint: Point): void {
         this.onCleanCanvasHandle();
@@ -45,14 +57,19 @@ export class CirclesComponent {
             const radius = this.circleService.calculateRadius(this.centerPoint, endPoint);
 
             this.drawCircle(radius).subscribe((result) => {
-                const { points } = result;
+                const { points, metadata } = result;
+                this.extractMetadata(metadata);
 
                 points.forEach((point) => {
                     const { x, y } = point;
                     this.canvas.drawPixel({ x: x + this.centerPoint.x, y: y + this.centerPoint.y });
                 });
 
-                this.viewService.sendMetadata(result);
+                this.viewService.sendMetadata({
+                    points,
+                    metadata,
+                    radius,
+                });
             });
         }
     }
@@ -64,6 +81,38 @@ export class CirclesComponent {
     public onCleanCanvasHandle(): void {
         this.canvas.clean();
         this.viewService.clean();
+    }
+
+    public onDrawCircleHandle(data: PolyFormValue): void {
+        this.canvas.clean();
+        this.drawCircleFixValues(data);
+    }
+
+    private drawCircleFixValues(data: PolyFormValue): void {
+        const viewPort = {
+            x: { min: 0, max: this.canvasWidth },
+            y: { min: 0, max: this.canvasHeight },
+        };
+
+        const pointCenter = this.coordinateService.deviceToWorld({ x: data.x, y: data.y }, viewPort);
+
+        this.centerPoint = { x: pointCenter.x, y: pointCenter.y };
+
+        this.drawCircle(data.radius).subscribe((result) => {
+            const { points, metadata } = result;
+            this.extractMetadata(metadata);
+
+            points.forEach((point) => {
+                const { x, y } = point;
+                this.canvas.drawPixel({ x: x + this.centerPoint.x, y: y + this.centerPoint.y });
+            });
+
+            this.viewService.sendMetadata({
+                points,
+                metadata,
+                radius: data.radius,
+            });
+        });
     }
 
     private drawCircle(
@@ -83,5 +132,15 @@ export class CirclesComponent {
 
     private isDiffPoint(pointA: Point, pointB: Point): boolean {
         return pointA.x !== pointB.x && pointA.y !== pointB.y;
+    }
+
+    private extractMetadata(metadata: unknown): void {
+        if (this.algorithm === CircleAlgorithm.polynomial) {
+            this.polyMetadata = metadata as PolynomialMetadata;
+        } else if (this.algorithm === CircleAlgorithm.trigonometric) {
+            this.trigMetadata = metadata as TrigonometricMetadata;
+        } else {
+            this.pmMetadata = metadata as PmMetadata;
+        }
     }
 }

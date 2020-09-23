@@ -1,0 +1,49 @@
+<div class="dda-inputs">
+    <form [formGroup]="polyForm" (ngSubmit)="onFormSubmit()">
+        <div class="poly-point">
+            <span>Point:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">x</div>
+                        <input type="number" placeholder="Value" formControlName="x" />
+                    </div>
+                    <div class="column input-coordinate">
+                        <div class="coordinate">y</div>
+                        <input type="number" placeholder="Value" formControlName="y" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="poly-point">
+            <span>Radius:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">r</div>
+                        <input type="number" placeholder="Value" formControlName="radius" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="transform-btn">
+            <button class="button">TRANSFORM</button>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<div class="poly-results">
+    <span>Polynomial result:</span>
+    <div class="group">
+        <div class="columns">
+            <div class="column input-coordinate">
+                <div class="coordinate">x-end</div>
+                <input type="number" disabled [value]="metadata.xEnd.toFixed(2)" />
+            </div>
+        </div>
+    </div>
+</div>
