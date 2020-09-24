@@ -3,23 +3,12 @@
         <div class="columns">
             <div class="column">
                 <div class="radio-toolbar">
-                    <input
-                        type="radio"
-                        id="polynomial"
-                        name="algorithm"
-                        [(ngModel)]="algorithm"
-                        [value]="'polynomial'"
-                        checked
-                    />
+                    <input type="radio" id="polynomial" name="algorithm" [(ngModel)]="algorithm" [value]="'polynomial'"
+                        checked />
                     <label for="polynomial">Poly</label>
 
-                    <input
-                        type="radio"
-                        id="trigonometric"
-                        name="algorithm"
-                        [(ngModel)]="algorithm"
-                        [value]="'trigonometric'"
-                    />
+                    <input type="radio" id="trigonometric" name="algorithm" [(ngModel)]="algorithm"
+                        [value]="'trigonometric'" />
                     <label for="trigonometric">Trig</label>
 
                     <input type="radio" id="pm" name="algorithm" [(ngModel)]="algorithm" [value]="'pm'" />
@@ -34,37 +23,20 @@
         <hr />
 
         <div *ngIf="algorithm === 'polynomial'">
-            <app-circle-poly-result
-                [viewPortWidth]="canvasWidth"
-                [viewPortHeight]="canvasHeight"
-                (onDrawCircle)="onDrawCircleHandle($event)"
-            ></app-circle-poly-result>
+            <app-circle-poly-result (onDrawCircle)="onDrawCircleHandle($event)"></app-circle-poly-result>
         </div>
 
         <div *ngIf="algorithm === 'trigonometric'">
-            <app-circle-trig-result
-                [viewPortWidth]="canvasWidth"
-                [viewPortHeight]="canvasHeight"
-                (onDrawCircle)="onDrawCircleHandle($event)"
-                [centerPoint]="centerPoint"
-            ></app-circle-trig-result>
+            <app-circle-trig-result (onDrawCircle)="onDrawCircleHandle($event)"></app-circle-trig-result>
         </div>
 
         <div *ngIf="algorithm === 'pm'">
-            <app-circle-pm-result
-                [viewPortWidth]="canvasWidth"
-                [viewPortHeight]="canvasHeight"
-                (onDrawCircle)="onDrawCircleHandle($event)"
-                [centerPoint]="centerPoint"
-            ></app-circle-pm-result>
+            <app-circle-pm-result (onDrawCircle)="onDrawCircleHandle($event)"></app-circle-pm-result>
         </div>
     </div>
     <div class="column">
-        <app-canvas
-            [width]="canvasWidth"
-            [height]="canvasHeight"
+        <app-canvas [width]="canvasWidth" [height]="canvasHeight"
             (onMouseStartDrawing)="onMouseStartDrawingHandle($event)"
-            (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"
-        ></app-canvas>
+            (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"></app-canvas>
     </div>
 </div>

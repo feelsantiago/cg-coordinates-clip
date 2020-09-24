@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SubSink } from 'subsink';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { ViewService } from '../../services/view.service';
-import { Point, ViewPort } from '../../types/coordinates';
+import { Point } from '../../types/coordinates';
 import { CircleCoordinate, PolynomialMetadata } from '../../types/circle';
 import { CircleFormValue } from '../circle-inputs/circle-inputs.component';
 
@@ -12,12 +12,6 @@ import { CircleFormValue } from '../circle-inputs/circle-inputs.component';
     styleUrls: ['./circle-poly-result.component.scss'],
 })
 export class CirclePolyResultComponent implements OnInit {
-    @Input()
-    public viewPortWidth: number;
-
-    @Input()
-    public viewPortHeight: number;
-
     @Output()
     public onDrawCircle: EventEmitter<CircleFormValue>;
 
@@ -56,19 +50,6 @@ export class CirclePolyResultComponent implements OnInit {
 
     public drawLine(value: CircleFormValue): void {
         this.onDrawCircle.emit(value);
-    }
-
-    private getViewPortDimensions(): ViewPort {
-        return {
-            x: {
-                min: 0,
-                max: this.viewPortWidth,
-            },
-            y: {
-                min: 0,
-                max: this.viewPortHeight,
-            },
-        };
     }
 
     private getInitialMetadata(): PolynomialMetadata {

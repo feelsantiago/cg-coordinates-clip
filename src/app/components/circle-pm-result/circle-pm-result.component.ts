@@ -18,24 +18,16 @@ interface CirclePoint {
     styleUrls: ['./circle-pm-result.component.scss'],
 })
 export class CirclePmResultComponent implements OnInit {
-    @Input()
-    public viewPortWidth: number;
-
-    @Input()
-    public viewPortHeight: number;
-
-    @Input()
-    public centerPoint: Point;
-
     @Output()
     public onDrawCircle: EventEmitter<CircleFormValue>;
+
+    public centerPoint: Point = { x: 0, y: 0 };
+
+    public radius = 0;
 
     public metadata: PmMetadata;
 
     public circlePoints: CirclePoint[];
-
-    @ViewChild(CircleInputsComponent, { static: false })
-    private circleInput: CircleInputsComponent;
 
     private subscriptions: SubSink;
 
@@ -49,58 +41,25 @@ export class CirclePmResultComponent implements OnInit {
         this.metadata = this.getInitialMetadata();
 
         this.subscriptions.sink = this.viewService.clean$.subscribe(() => {
-            this.circleInput.cleanForm();
             this.metadata = this.getInitialMetadata();
             this.circlePoints = [{ d: 0, point: { x: 0, y: 0 } }];
         });
 
         this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
-            const { metadata, radius } = coordinates as CircleCoordinate<PmMetadata> & {
+            const { metadata, centerPoint } = coordinates as CircleCoordinate<PmMetadata> & {
                 radius: number;
+                centerPoint: Point;
             };
-
-            let point = { x: 0, y: 0 };
-            if (this.centerPoint) point = this.transformPoint(this.centerPoint);
 
             this.metadata = { d: metadata.d };
 
-            this.circlePoints.push({ point, d: metadata.d });
-
-            this.circleInput.setMetadataForm({
-                x: point.x,
-                y: point.y,
-                radius,
-            });
+            this.circlePoints.push({ point: { x: centerPoint.x, y: centerPoint.y * -1 }, d: metadata.d });
         });
     }
 
     public drawLine(value: CircleFormValue): void {
         this.circlePoints = [];
         this.onDrawCircle.emit(value);
-    }
-
-    private transformPoint(point: Point): Point {
-        let result: Point;
-
-        if (point) {
-            const viewPort = this.getViewPortDimensions();
-            result = this.coordinateService.transformWorldToDevice(viewPort, viewPort, point, NormalizedRange.center);
-        }
-
-        return result;
-    }
-
-    private getViewPortDimensions(): ViewPort {
-        return {
-            x: {
-                min: 0,
-                max: this.viewPortWidth,
-            },
-            y: {
-                min: 0,
-                max: this.viewPortHeight,
-            },
-        };
     }
 
     private getInitialMetadata(): PmMetadata {
