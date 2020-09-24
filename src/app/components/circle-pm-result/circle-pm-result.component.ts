@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SubSink } from 'subsink';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { ViewService } from '../../services/view.service';
 import { PmMetadata } from '../../types/lines';
 import { CircleCoordinate } from '../../types/circle';
-import { Point, NormalizedRange, ViewPort } from '../../types/coordinates';
-import { CircleFormValue, CircleInputsComponent } from '../circle-inputs/circle-inputs.component';
+import { Point } from '../../types/coordinates';
+import { CircleFormValue } from '../circle-inputs/circle-inputs.component';
 
 interface CirclePoint {
     point: Point;
