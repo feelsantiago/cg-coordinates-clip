@@ -19,10 +19,6 @@ export class CircleInputsComponent implements OnInit {
     @Output()
     public drawLine: EventEmitter<CircleFormValue>;
 
-    public point: Point = { x: 0, y: 0 };
-
-    public radius = 0;
-
     public circleForm: FormGroup;
 
     private subscriptions: SubSink;
@@ -41,8 +37,11 @@ export class CircleInputsComponent implements OnInit {
                 centerPoint: Point;
             };
 
-            this.point = centerPoint;
-            this.radius = radius;
+            this.circleForm.setValue({
+                x: centerPoint.x,
+                y: centerPoint.y,
+                radius,
+            });
         });
 
         this.subscriptions.sink = this.viewService.clean$.subscribe(() => {

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CircleCoordinate, PolynomialMetadata, TrigonometricMetadata } from '../../types/circle';
 import { PmMetadata } from '../../types/lines';
-import { Point } from '../../types/coordinates';
+import { NormalizedRange, Point } from '../../types/coordinates';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { CircleService } from '../../services/circle.service';
 import { ViewService } from '../../services/view.service';
@@ -40,6 +40,11 @@ export class CirclesComponent {
 
     private isNewDraw = true;
 
+    private viewPort = {
+        x: { min: 0, max: this.canvasWidth },
+        y: { min: 0, max: this.canvasHeight },
+    };
+
     constructor(
         private readonly circleService: CircleService,
         private readonly coordinateService: CoordinatesService,
@@ -48,6 +53,7 @@ export class CirclesComponent {
 
     public onMouseStartDrawingHandle(endPoint: Point): void {
         this.onCleanCanvasHandle();
+
         if (this.isNewDraw) {
             this.isNewDraw = false;
             this.centerPoint = endPoint;
@@ -65,11 +71,12 @@ export class CirclesComponent {
                     this.canvas.drawPixel({ x: x + this.centerPoint.x, y: y + this.centerPoint.y });
                 });
 
+                const { x, y } = this.transformPoint(this.centerPoint);
                 this.viewService.sendMetadata({
                     points,
                     metadata,
                     radius,
-                    centerPoint: this.centerPoint,
+                    centerPoint: { x, y: y * -1 },
                 });
             });
         }
@@ -90,13 +97,8 @@ export class CirclesComponent {
     }
 
     private drawCircleFixValues(data: CircleFormValue): void {
-        const viewPort = {
-            x: { min: 0, max: this.canvasWidth },
-            y: { min: 0, max: this.canvasHeight },
-        };
-
         this.centerPoint = { x: data.x, y: data.y };
-        const devicePoint = this.coordinateService.deviceToWorld({ x: data.x, y: data.y }, viewPort);
+        const world = this.coordinateService.deviceToWorld({ x: data.x, y: data.y }, this.viewPort);
 
         this.drawCircle(data.radius).subscribe((result) => {
             const { points, metadata } = result;
@@ -104,7 +106,7 @@ export class CirclesComponent {
 
             points.forEach((point) => {
                 const { x, y } = point;
-                this.canvas.drawPixel({ x: x + devicePoint.x, y: y + devicePoint.y });
+                this.canvas.drawPixel({ x: x + world.x, y: y + world.y });
             });
 
             this.viewService.sendMetadata({
@@ -143,5 +145,20 @@ export class CirclesComponent {
         } else {
             this.pmMetadata = metadata as PmMetadata;
         }
+    }
+
+    private transformPoint(point: Point): Point {
+        let result: Point;
+
+        if (point) {
+            result = this.coordinateService.transformWorldToDevice(
+                this.viewPort,
+                this.viewPort,
+                point,
+                NormalizedRange.center,
+            );
+        }
+
+        return result;
     }
 }
