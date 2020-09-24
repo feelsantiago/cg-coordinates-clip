@@ -65,12 +65,6 @@ export class CirclePmResultComponent implements OnInit {
             this.metadata = { d: metadata.d };
 
             this.circlePoints.push({ point, d: metadata.d });
-
-            this.circleInput.setMetadataForm({
-                x: point.x,
-                y: point.y,
-                radius,
-            });
         });
     }
 
