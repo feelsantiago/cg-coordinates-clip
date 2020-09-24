@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SubSink } from 'subsink';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { ViewService } from '../../services/view.service';
-import { NormalizedRange, Point, ViewPort } from '../../types/coordinates';
+import { Point, ViewPort } from '../../types/coordinates';
 import { CircleCoordinate, PolynomialMetadata } from '../../types/circle';
 import { CircleFormValue } from '../circle-inputs/circle-inputs.component';
 
