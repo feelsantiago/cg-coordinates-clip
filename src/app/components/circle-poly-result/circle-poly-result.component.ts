@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SubSink } from 'subsink';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { ViewService } from '../../services/view.service';
 import { NormalizedRange, Point, ViewPort } from '../../types/coordinates';
 import { CircleCoordinate, PolynomialMetadata } from '../../types/circle';
-import { CircleFormValue, CircleInputsComponent } from '../circle-inputs/circle-inputs.component';
+import { CircleFormValue } from '../circle-inputs/circle-inputs.component';
 
 @Component({
     selector: 'app-circle-poly-result',
@@ -27,9 +27,6 @@ export class CirclePolyResultComponent implements OnInit {
 
     public metadata: PolynomialMetadata;
 
-    @ViewChild(CircleInputsComponent, { static: false })
-    private circleInput: CircleInputsComponent;
-
     private subscriptions: SubSink;
 
     constructor(private readonly coordinateService: CoordinatesService, private readonly viewService: ViewService) {
@@ -41,7 +38,6 @@ export class CirclePolyResultComponent implements OnInit {
         this.metadata = this.getInitialMetadata();
 
         this.subscriptions.sink = this.viewService.clean$.subscribe(() => {
-            this.circleInput.cleanForm();
             this.metadata = this.getInitialMetadata();
         });
 
@@ -60,17 +56,6 @@ export class CirclePolyResultComponent implements OnInit {
 
     public drawLine(value: CircleFormValue): void {
         this.onDrawCircle.emit(value);
-    }
-
-    private transformPoint(point: Point): Point {
-        let result: Point;
-
-        if (point) {
-            const viewPort = this.getViewPortDimensions();
-            result = this.coordinateService.transformWorldToDevice(viewPort, viewPort, point, NormalizedRange.center);
-        }
-
-        return result;
     }
 
     private getViewPortDimensions(): ViewPort {
