@@ -69,6 +69,7 @@ export class CirclesComponent {
                     points,
                     metadata,
                     radius,
+                    centerPoint: this.centerPoint,
                 });
             });
         }
@@ -94,9 +95,8 @@ export class CirclesComponent {
             y: { min: 0, max: this.canvasHeight },
         };
 
-        const pointCenter = this.coordinateService.deviceToWorld({ x: data.x, y: data.y }, viewPort);
-
-        this.centerPoint = { x: pointCenter.x, y: pointCenter.y };
+        this.centerPoint = { x: data.x, y: data.y };
+        const devicePoint = this.coordinateService.deviceToWorld({ x: data.x, y: data.y }, viewPort);
 
         this.drawCircle(data.radius).subscribe((result) => {
             const { points, metadata } = result;
@@ -104,13 +104,14 @@ export class CirclesComponent {
 
             points.forEach((point) => {
                 const { x, y } = point;
-                this.canvas.drawPixel({ x: x + this.centerPoint.x, y: y + this.centerPoint.y });
+                this.canvas.drawPixel({ x: x + devicePoint.x, y: y + devicePoint.y });
             });
 
             this.viewService.sendMetadata({
                 points,
                 metadata,
                 radius: data.radius,
+                centerPoint: this.centerPoint,
             });
         });
     }

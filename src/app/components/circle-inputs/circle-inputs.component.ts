@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SubSink } from 'subsink';
+import { ViewService } from '../../services/view.service';
+import { Point } from '../../types/coordinates';
 
 export interface CircleFormValue {
     x: number;
@@ -16,18 +19,35 @@ export class CircleInputsComponent implements OnInit {
     @Output()
     public drawLine: EventEmitter<CircleFormValue>;
 
+    public point: Point = { x: 0, y: 0 };
+
+    public radius = 0;
+
     public circleForm: FormGroup;
 
-    constructor(private readonly fb: FormBuilder) {
+    private subscriptions: SubSink;
+
+    constructor(private readonly fb: FormBuilder, private readonly viewService: ViewService) {
         this.drawLine = new EventEmitter();
+        this.subscriptions = new SubSink();
     }
 
     public ngOnInit(): void {
         this.initForm();
-    }
 
-    public setMetadataForm({ x, y, radius }: CircleFormValue): void {
-        this.circleForm.setValue({ x, y, radius });
+        this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
+            const { radius, centerPoint } = coordinates as {
+                radius: number;
+                centerPoint: Point;
+            };
+
+            this.point = centerPoint;
+            this.radius = radius;
+        });
+
+        this.subscriptions.sink = this.viewService.clean$.subscribe(() => {
+            this.circleForm.reset();
+        });
     }
 
     public onFormSubmit(): void {

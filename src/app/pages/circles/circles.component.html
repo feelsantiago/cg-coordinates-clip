@@ -3,12 +3,23 @@
         <div class="columns">
             <div class="column">
                 <div class="radio-toolbar">
-                    <input type="radio" id="polynomial" name="algorithm" [(ngModel)]="algorithm" [value]="'polynomial'"
-                        checked />
+                    <input
+                        type="radio"
+                        id="polynomial"
+                        name="algorithm"
+                        [(ngModel)]="algorithm"
+                        [value]="'polynomial'"
+                        checked
+                    />
                     <label for="polynomial">Poly</label>
 
-                    <input type="radio" id="trigonometric" name="algorithm" [(ngModel)]="algorithm"
-                        [value]="'trigonometric'" />
+                    <input
+                        type="radio"
+                        id="trigonometric"
+                        name="algorithm"
+                        [(ngModel)]="algorithm"
+                        [value]="'trigonometric'"
+                    />
                     <label for="trigonometric">Trig</label>
 
                     <input type="radio" id="pm" name="algorithm" [(ngModel)]="algorithm" [value]="'pm'" />
@@ -27,7 +38,6 @@
                 [viewPortWidth]="canvasWidth"
                 [viewPortHeight]="canvasHeight"
                 (onDrawCircle)="onDrawCircleHandle($event)"
-                [centerPoint]="centerPoint"
             ></app-circle-poly-result>
         </div>
 

@@ -18,11 +18,12 @@ export class CirclePolyResultComponent implements OnInit {
     @Input()
     public viewPortHeight: number;
 
-    @Input()
-    public centerPoint: Point;
-
     @Output()
     public onDrawCircle: EventEmitter<CircleFormValue>;
+
+    public centerPoint: Point = { x: 0, y: 0 };
+
+    public radius = 0;
 
     public metadata: PolynomialMetadata;
 
@@ -45,23 +46,15 @@ export class CirclePolyResultComponent implements OnInit {
         });
 
         this.subscriptions.sink = this.viewService.metadata$.subscribe((coordinates) => {
-            const { metadata, radius } = coordinates as CircleCoordinate<PolynomialMetadata> & {
+            const { metadata, centerPoint } = coordinates as CircleCoordinate<PolynomialMetadata> & {
                 radius: number;
+                centerPoint: Point;
             };
-
-            let point = { x: 0, y: 0 };
-            if (this.centerPoint) point = this.transformPoint(this.centerPoint);
 
             this.metadata = {
-                x: metadata.x + point.x,
-                xEnd: metadata.xEnd + point.x,
+                x: metadata.x + centerPoint.x,
+                xEnd: metadata.xEnd + centerPoint.x,
             };
-
-            this.circleInput.setMetadataForm({
-                x: point.x,
-                y: point.y,
-                radius,
-            });
         });
     }
 
