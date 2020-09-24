@@ -1,16 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SubSink } from 'subsink';
 import { CoordinatesService } from '../../services/coordinates.service';
 import { ViewService } from '../../services/view.service';
 import { NormalizedRange, Point, ViewPort } from '../../types/coordinates';
 import { CircleCoordinate, PolynomialMetadata } from '../../types/circle';
-
-export interface PolyFormValue {
-    x: number;
-    y: number;
-    radius: number;
-}
+import { CircleFormValue, CircleInputsComponent } from '../circle-inputs/circle-inputs.component';
 
 @Component({
     selector: 'app-circle-poly-result',
@@ -28,31 +22,25 @@ export class CirclePolyResultComponent implements OnInit {
     public centerPoint: Point;
 
     @Output()
-    public onDrawCircle: EventEmitter<PolyFormValue>;
-
-    public points: Point[];
+    public onDrawCircle: EventEmitter<CircleFormValue>;
 
     public metadata: PolynomialMetadata;
 
-    public polyForm: FormGroup;
+    @ViewChild(CircleInputsComponent, { static: false })
+    private circleInput: CircleInputsComponent;
 
     private subscriptions: SubSink;
 
-    constructor(
-        private readonly fb: FormBuilder,
-        private readonly coordinateService: CoordinatesService,
-        private readonly viewService: ViewService,
-    ) {
+    constructor(private readonly coordinateService: CoordinatesService, private readonly viewService: ViewService) {
         this.onDrawCircle = new EventEmitter();
         this.subscriptions = new SubSink();
     }
 
     public ngOnInit(): void {
-        this.initForm();
         this.metadata = this.getInitialMetadata();
 
         this.subscriptions.sink = this.viewService.clean$.subscribe(() => {
-            this.polyForm.reset();
+            this.circleInput.cleanForm();
             this.metadata = this.getInitialMetadata();
         });
 
@@ -69,7 +57,7 @@ export class CirclePolyResultComponent implements OnInit {
                 xEnd: metadata.xEnd + point.x,
             };
 
-            this.polyForm.setValue({
+            this.circleInput.setMetadataForm({
                 x: point.x,
                 y: point.y,
                 radius,
@@ -77,17 +65,8 @@ export class CirclePolyResultComponent implements OnInit {
         });
     }
 
-    public onFormSubmit(): void {
-        const value = this.polyForm.value as PolyFormValue;
+    public drawLine(value: CircleFormValue): void {
         this.onDrawCircle.emit(value);
-    }
-
-    private initForm(): void {
-        this.polyForm = this.fb.group({
-            x: [0, Validators.required],
-            y: [0, Validators.required],
-            radius: [0, Validators.required],
-        });
     }
 
     private transformPoint(point: Point): Point {

@@ -41,7 +41,12 @@
         </div>
 
         <div *ngIf="algorithm === 'pm'">
-            <app-circle-poly-result></app-circle-poly-result>
+            <app-circle-pm-result
+                [viewPortWidth]="canvasWidth"
+                [viewPortHeight]="canvasHeight"
+                (onDrawCircle)="onDrawCircleHandle($event)"
+                [centerPoint]="centerPoint"
+            ></app-circle-pm-result>
         </div>
     </div>
     <div class="column">

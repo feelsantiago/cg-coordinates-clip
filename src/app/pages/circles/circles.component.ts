@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PolyFormValue } from '../../components/circle-poly-result/circle-poly-result.component';
 import { CircleCoordinate, PolynomialMetadata, TrigonometricMetadata } from '../../types/circle';
 import { PmMetadata } from '../../types/lines';
 import { Point } from '../../types/coordinates';
@@ -8,6 +7,7 @@ import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { CircleService } from '../../services/circle.service';
 import { ViewService } from '../../services/view.service';
 import { CoordinatesService } from '../../services/coordinates.service';
+import { CircleFormValue } from '../../components/circle-inputs/circle-inputs.component';
 
 enum CircleAlgorithm {
     pm = 'pm',
@@ -83,12 +83,12 @@ export class CirclesComponent {
         this.viewService.clean();
     }
 
-    public onDrawCircleHandle(data: PolyFormValue): void {
+    public onDrawCircleHandle(data: CircleFormValue): void {
         this.canvas.clean();
         this.drawCircleFixValues(data);
     }
 
-    private drawCircleFixValues(data: PolyFormValue): void {
+    private drawCircleFixValues(data: CircleFormValue): void {
         const viewPort = {
             x: { min: 0, max: this.canvasWidth },
             y: { min: 0, max: this.canvasHeight },
