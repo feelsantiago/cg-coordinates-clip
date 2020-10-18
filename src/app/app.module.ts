@@ -16,6 +16,10 @@ import { LinesComponent } from './pages/lines/lines.component';
 import { CirclesComponent } from './pages/circles/circles.component';
 import { LineDdaResultComponent } from './components/line-dda-result/line-dda-result.component';
 import { LinePmResultComponent } from './components/line-pm-result/line-pm-result.component';
+import { CirclePolyResultComponent } from './components/circle-poly-result/circle-poly-result.component';
+import { CircleTrigResultComponent } from './components/circle-trig-result/circle-trig-result.component';
+import { CircleInputsComponent } from './components/circle-inputs/circle-inputs.component';
+import { CirclePmResultComponent } from './components/circle-pm-result/circle-pm-result.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +37,10 @@ import { LinePmResultComponent } from './components/line-pm-result/line-pm-resul
         CirclesComponent,
         LineDdaResultComponent,
         LinePmResultComponent,
+        CirclePolyResultComponent,
+        CircleTrigResultComponent,
+        CircleInputsComponent,
+        CirclePmResultComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],

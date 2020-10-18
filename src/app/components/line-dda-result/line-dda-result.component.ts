@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { ViewService } from '../../services/view.service';
@@ -18,7 +18,7 @@ export interface DdaFormValue {
     templateUrl: './line-dda-result.component.html',
     styleUrls: ['./line-dda-result.component.scss'],
 })
-export class LineDdaResultComponent {
+export class LineDdaResultComponent implements OnDestroy {
     @Input()
     public viewPortWidth: number;
 
@@ -45,6 +45,10 @@ export class LineDdaResultComponent {
     ) {
         this.onDrawLine = new EventEmitter();
         this.subscriptions = new SubSink();
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 
     public ngOnInit(): void {

@@ -66,7 +66,7 @@ export class LinePmResultComponent implements OnInit {
     ) {
         this.subscriptions = new SubSink();
         this.onDrawLine = new EventEmitter();
-        this.linePoints = [];
+        this.linePoints = [{ d: 0, point: { x: 0, y: 0 } }];
     }
 
     public ngOnInit(): void {
@@ -96,7 +96,7 @@ export class LinePmResultComponent implements OnInit {
         this.viewService.clean$.subscribe(() => {
             this.pmForm.reset();
             this.metadata = this.getInitialMetadata();
-            this.linePoints = [];
+            this.linePoints = [{ d: 0, point: { x: 0, y: 0 } }];
         });
     }
 

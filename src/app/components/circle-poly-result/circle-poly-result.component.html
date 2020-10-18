@@ -1,0 +1,15 @@
+<app-circle-inputs (drawLine)="drawLine($event)"></app-circle-inputs>
+
+<hr />
+
+<div class="poly-results">
+    <span>Polynomial result:</span>
+    <div class="group">
+        <div class="columns">
+            <div class="column input-coordinate">
+                <div class="coordinate">x-end</div>
+                <input type="number" disabled [value]="metadata.xEnd.toFixed(2)" />
+            </div>
+        </div>
+    </div>
+</div>

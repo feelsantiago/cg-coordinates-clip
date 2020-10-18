@@ -1,0 +1,35 @@
+<div class="circle-inputs">
+    <form [formGroup]="circleForm" (ngSubmit)="onFormSubmit()">
+        <div class="poly-point">
+            <span>Point:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">x</div>
+                        <input type="number" placeholder="Value" formControlName="x" />
+                    </div>
+                    <div class="column input-coordinate">
+                        <div class="coordinate">y</div>
+                        <input type="number" placeholder="Value" formControlName="y" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="poly-point">
+            <span>Radius:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">r</div>
+                        <input type="number" placeholder="Value" formControlName="radius" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="transform-btn">
+            <button class="button">TRANSFORM</button>
+        </div>
+    </form>
+</div>
