@@ -1,0 +1,80 @@
+<div class="dda-inputs">
+    <form [formGroup]="ddaForm" (ngSubmit)="onFormSubmit()">
+        <div class="dda-point">
+            <span>Start Points:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">x</div>
+                        <input type="number" placeholder="Value" formControlName="startPointX" />
+                    </div>
+                    <div class="column input-coordinate">
+                        <div class="coordinate">y</div>
+                        <input type="number" placeholder="Value" formControlName="startPointY" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dda-point">
+            <span>End Points:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">x</div>
+                        <input type="number" placeholder="Value" formControlName="endPointX" />
+                    </div>
+                    <div class="column input-coordinate">
+                        <div class="coordinate">y</div>
+                        <input type="number" placeholder="Value" formControlName="endPointY" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="transform-btn">
+            <button class="button">TRANSFORM</button>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<div class="dda-results">
+    <span>DDA results:</span>
+    <div class="group">
+        <div class="columns">
+            <div class="column input-coordinate">
+                <div class="coordinate">dx</div>
+                <input type="number" disabled [value]="metadata.dx * 2" />
+            </div>
+            <div class="column input-coordinate">
+                <div class="coordinate">dy</div>
+                <input type="number" disabled [value]="metadata.dy * 2 * -1" />
+            </div>
+        </div>
+    </div>
+
+    <div class="group">
+        <div class="columns">
+            <div class="column input-coordinate">
+                <div class="coordinate">x-inc</div>
+                <input type="number" disabled [value]="metadata.xIncrement.toFixed(2)" />
+            </div>
+            <div class="column input-coordinate">
+                <div class="coordinate">y-inc</div>
+                <input type="number" disabled [value]="(metadata.yIncrement * -1).toFixed(2)" />
+            </div>
+        </div>
+    </div>
+
+    <div class="group">
+        <div class="columns">
+            <div class="column input-coordinate">
+                <div class="coordinate">steps</div>
+                <input type="number" disabled [value]="metadata.steps" />
+            </div>
+            <div class="column input-coordinate"></div>
+        </div>
+    </div>
+</div>

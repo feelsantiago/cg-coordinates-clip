@@ -1,0 +1,66 @@
+<!-- <div *ngIf="metadata">
+    <p>{{ metadata.d }}</p>
+    <p>{{ point.x }}</p>
+    <p>{{ point.y * -1 }}</p>
+</div> -->
+<div class="pm-inputs">
+    <form [formGroup]="pmForm" (ngSubmit)="onFormSubmit()">
+        <div class="pm-point">
+            <span>Start Points:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">x</div>
+                        <input type="number" placeholder="Value" formControlName="startPointX" />
+                    </div>
+                    <div class="column input-coordinate">
+                        <div class="coordinate">y</div>
+                        <input type="number" placeholder="Value" formControlName="startPointY" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pm-point">
+            <span>End Points:</span>
+            <div class="group">
+                <div class="columns">
+                    <div class="column input-coordinate">
+                        <div class="coordinate">x</div>
+                        <input type="number" placeholder="Value" formControlName="endPointX" />
+                    </div>
+                    <div class="column input-coordinate">
+                        <div class="coordinate">y</div>
+                        <input type="number" placeholder="Value" formControlName="endPointY" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="transform-btn">
+            <button class="button">TRANSFORM</button>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<div class="pm-results transformation-result">
+    <div class="results">
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>d</th>
+                    <th>x</th>
+                    <th>y</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of linePoints">
+                    <td>{{ item.d }}</td>
+                    <td>{{ item.point.x.toFixed(2) }}</td>
+                    <td>{{ (item.point.y * -1).toFixed(2) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

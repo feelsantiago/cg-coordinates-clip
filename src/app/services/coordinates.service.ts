@@ -91,4 +91,19 @@ export class CoordinatesService {
 
         return { x: dcx, y: dcy };
     }
+
+    public deviceToWorld(point: Point, world: ViewPort): Point {
+        let { x, y } = point;
+
+        x /= 2;
+        y = (y / 2) * -1;
+
+        const width = world.x.max / 2;
+        const height = world.y.max / 2;
+
+        x += width;
+        y += height;
+
+        return { x, y };
+    }
 }

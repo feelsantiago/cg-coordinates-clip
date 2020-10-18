@@ -1,0 +1,48 @@
+<div class="columns">
+    <div class="column is-two-fifths">
+        <div class="columns">
+            <div class="column">
+                <div class="radio-toolbar">
+                    <input type="radio" id="dda" name="algorithm" [(ngModel)]="algorithm" [value]="'dda'" checked />
+                    <label for="dda">DDA</label>
+
+                    <input type="radio" id="pm" name="algorithm" [(ngModel)]="algorithm" [value]="'pm'" />
+                    <label for="pm">P.M.</label>
+                </div>
+            </div>
+            <div class="column">
+                <button class="button" (click)="onCleanCanvasHandle()">CLEAN CANVAS</button>
+            </div>
+        </div>
+
+        <hr />
+
+        <div *ngIf="algorithm === 'dda'">
+            <app-line-dda-result
+                [viewPortWidth]="canvasWidth"
+                [viewPortHeight]="canvasHeight"
+                (onDrawLine)="onDrawLineHandle($event)"
+            >
+            </app-line-dda-result>
+        </div>
+
+        <div *ngIf="algorithm === 'pm'">
+            <app-line-pm-result
+                [viewPortWidth]="canvasWidth"
+                [viewPortHeight]="canvasHeight"
+                [metadata]="pmMetadata"
+                [point]="point"
+                [startPoint]="startPoint"
+                (onDrawLine)="onDrawLineHandle($event)"
+            ></app-line-pm-result>
+        </div>
+    </div>
+    <div class="column">
+        <app-canvas
+            [width]="canvasWidth"
+            [height]="canvasHeight"
+            (onMouseStartDrawing)="onMouseStartDrawingHandle($event)"
+            (onMouseFinishDrawing)="onMouseFinishDrawingHandle()"
+        ></app-canvas>
+    </div>
+</div>

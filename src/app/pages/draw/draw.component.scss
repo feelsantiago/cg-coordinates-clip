@@ -1,0 +1,23 @@
+.draw-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+        a {
+            font-size: 20px;
+    
+            &.active {
+                color: #de0900;
+            }
+    
+            &:hover {
+                color: #de0900;
+                background-color: #fffaf0;
+            }
+        }
+}
+
+hr {
+    height: 1px;
+    background-color: #ddd;
+}

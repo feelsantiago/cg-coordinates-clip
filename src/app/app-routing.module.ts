@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TransformationComponent } from './pages/transformation/transformation.component';
 import { InterpolationComponent } from './pages/interpolation/interpolation.component';
+import { DrawComponent } from './pages/draw/draw.component';
+import { LinesComponent } from './pages/lines/lines.component';
+import { CirclesComponent } from './pages/circles/circles.component';
 
 const routes: Routes = [
     {
@@ -11,6 +14,25 @@ const routes: Routes = [
     {
         path: 'interpolation',
         component: InterpolationComponent,
+    },
+    {
+        path: 'draw',
+        component: DrawComponent,
+        children: [
+            {
+                path: 'lines',
+                component: LinesComponent,
+            },
+            {
+                path: 'circles',
+                component: CirclesComponent,
+            },
+            {
+                path: '',
+                redirectTo: 'lines',
+                pathMatch: 'full',
+            },
+        ],
     },
     {
         path: '',

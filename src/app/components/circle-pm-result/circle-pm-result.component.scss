@@ -1,0 +1,30 @@
+.transformation-result {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    .results {
+        flex: 1;
+        max-height: 200px;
+        overflow-y: scroll;
+
+        .result-table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            width: 100%;
+
+            th,
+            td {
+                height: 40px;
+                border: 1px solid #ff7d00;
+                text-align: center;
+            }
+
+            th {
+                background: #ff7d00;
+                color: white;
+                padding-top: 7px;
+            }
+        }
+    }
+}
