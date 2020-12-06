@@ -20,6 +20,7 @@ import { CirclePolyResultComponent } from './components/circle-poly-result/circl
 import { CircleTrigResultComponent } from './components/circle-trig-result/circle-trig-result.component';
 import { CircleInputsComponent } from './components/circle-inputs/circle-inputs.component';
 import { CirclePmResultComponent } from './components/circle-pm-result/circle-pm-result.component';
+import { FractalComponent } from './pages/fractal/fractal.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { CirclePmResultComponent } from './components/circle-pm-result/circle-pm
         CircleTrigResultComponent,
         CircleInputsComponent,
         CirclePmResultComponent,
+        FractalComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],

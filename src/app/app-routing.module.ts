@@ -5,6 +5,7 @@ import { InterpolationComponent } from './pages/interpolation/interpolation.comp
 import { DrawComponent } from './pages/draw/draw.component';
 import { LinesComponent } from './pages/lines/lines.component';
 import { CirclesComponent } from './pages/circles/circles.component';
+import { FractalComponent } from './pages/fractal/fractal.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,10 @@ const routes: Routes = [
                 pathMatch: 'full',
             },
         ],
+    },
+    {
+        path: 'fractal',
+        component: FractalComponent,
     },
     {
         path: '',

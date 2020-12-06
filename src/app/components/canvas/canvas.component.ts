@@ -15,6 +15,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     @Input()
     public height = 100;
 
+    @Input()
+    public cartesianLines = true;
+
     @ViewChild('canvas')
     public canvasRef: ElementRef;
 
@@ -55,7 +58,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
         this.canvasContext = this.canvas.getContext('2d');
 
-        this.drawCartesianLines();
+        if (this.cartesianLines) {
+            this.drawCartesianLines();
+        }
+
         this.initCanvasListeners();
     }
 
@@ -63,6 +69,35 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         const { x, y } = point;
         this.canvasContext.fillStyle = 'black';
         this.canvasContext.fillRect(x, y, 3, 3);
+    }
+
+    public drawFractalTree(startX: number, startY: number, len: number, angle: number, branchWidth: number): void {
+        this.canvasContext.lineWidth = branchWidth;
+
+        this.canvasContext.beginPath();
+        this.canvasContext.save();
+
+        this.canvasContext.strokeStyle = 'green';
+        this.canvasContext.fillStyle = 'green';
+
+        this.canvasContext.translate(startX, startY);
+        this.canvasContext.rotate((angle * Math.PI) / 180);
+        this.canvasContext.moveTo(0, 0);
+        this.canvasContext.lineTo(0, -len);
+        this.canvasContext.stroke();
+
+        this.canvasContext.shadowBlur = 15;
+        this.canvasContext.shadowColor = 'rgba(0,0,0,0.8)';
+
+        if (len < 10) {
+            this.canvasContext.restore();
+            return;
+        }
+
+        this.drawFractalTree(0, -len, len * 0.8, angle - 15, branchWidth * 0.8);
+        this.drawFractalTree(0, -len, len * 0.8, angle + 15, branchWidth * 0.8);
+
+        this.canvasContext.restore();
     }
 
     public clean(): void {
