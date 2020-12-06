@@ -100,6 +100,18 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.canvasContext.restore();
     }
 
+    public drawImage(image: HTMLImageElement): void {
+        this.canvasContext.drawImage(image, 0, 0, this.width, this.height);
+    }
+
+    public putImageDate(data: ImageData): void {
+        this.canvasContext.putImageData(data, 0, 0);
+    }
+
+    public getImageData(): ImageData {
+        return this.canvasContext.getImageData(0, 0, this.width, this.height);
+    }
+
     public clean(): void {
         this.canvasContext.clearRect(0, 0, this.width, this.height);
         this.drawCartesianLines();

@@ -22,6 +22,7 @@ module.exports = {
         'plugin:unicorn/recommended',
     ],
     rules: {
+        'no-bitwise': 'off',
         'no-restricted-syntax': 'off',
         'func-names': 'off',
         'no-prototype-builtins': 'off',

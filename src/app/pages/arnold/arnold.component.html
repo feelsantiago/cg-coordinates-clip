@@ -1,1 +1,6 @@
-<h1>arnold</h1>
+<input type="file" name="fileUpload" id="file-upload" accept="image/*" (change)="onFileUpload($event.target.files)" />
+
+<app-canvas *ngIf="hasImage" [cartesianLines]="false" [width]="imageWidth" [height]="imageHeight"></app-canvas>
+<h1 *ngIf="hasImage">Iteration: {{ iteration }}</h1>
+<button *ngIf="hasImage" (click)="onPreviousIteration()">Anterior Iteração</button>
+<button *ngIf="hasImage" (click)="onNextIteration()">Proxima Iteração</button>
