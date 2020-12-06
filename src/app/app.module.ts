@@ -22,6 +22,7 @@ import { CircleInputsComponent } from './components/circle-inputs/circle-inputs.
 import { CirclePmResultComponent } from './components/circle-pm-result/circle-pm-result.component';
 import { FractalComponent } from './pages/fractal/fractal.component';
 import { ArnoldComponent } from './pages/arnold/arnold.component';
+import { HeartComponent } from './pages/heart/heart.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { ArnoldComponent } from './pages/arnold/arnold.component';
         CirclePmResultComponent,
         FractalComponent,
         ArnoldComponent,
+        HeartComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],

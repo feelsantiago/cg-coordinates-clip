@@ -7,6 +7,7 @@ import { LinesComponent } from './pages/lines/lines.component';
 import { CirclesComponent } from './pages/circles/circles.component';
 import { FractalComponent } from './pages/fractal/fractal.component';
 import { ArnoldComponent } from './pages/arnold/arnold.component';
+import { HeartComponent } from './pages/heart/heart.component';
 
 const routes: Routes = [
     {
@@ -35,6 +36,10 @@ const routes: Routes = [
                 pathMatch: 'full',
             },
         ],
+    },
+    {
+        path: 'heart',
+        component: HeartComponent,
     },
     {
         path: 'fractal',
