@@ -20,6 +20,10 @@ export class ArnoldComponent {
 
     public iteration = 0;
 
+    public originalDataImage: Uint8ClampedArray;
+
+    public isProcessingAutoIteration = false;
+
     public onFileUpload(files: FilesEvent): void {
         const image = files[0];
 
@@ -35,7 +39,10 @@ export class ArnoldComponent {
                 this.imageWidth = img.width;
                 this.imageHeight = img.height;
 
-                setTimeout(() => this.canvas.drawImage(img), 400);
+                setTimeout(() => {
+                    this.canvas.drawImage(img);
+                    this.originalDataImage = this.canvas.getImageData().data;
+                }, 400);
             });
 
             img.src = URL.createObjectURL(image);
@@ -44,14 +51,12 @@ export class ArnoldComponent {
 
     public onNextIteration(): void {
         const imgNext = this.calculateIteration();
-
         this.iteration++;
         this.canvas.putImageDate(imgNext);
     }
 
     public onPreviousIteration(): void {
         const imgNext = this.calculateIteration(true);
-
         this.iteration--;
         this.canvas.putImageDate(imgNext);
     }

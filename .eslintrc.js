@@ -81,5 +81,6 @@ module.exports = {
         'no-plusplus': 'off',
         'unicorn/prevent-abbreviations': 'off',
         'promise/prefer-await-to-then': 'warn',
+        'unicorn/no-for-loop': 'off',
     },
 };

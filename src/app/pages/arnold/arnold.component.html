@@ -2,5 +2,7 @@
 
 <app-canvas *ngIf="hasImage" [cartesianLines]="false" [width]="imageWidth" [height]="imageHeight"></app-canvas>
 <h1 *ngIf="hasImage">Iteration: {{ iteration }}</h1>
-<button *ngIf="hasImage" (click)="onPreviousIteration()">Anterior Iteração</button>
-<button *ngIf="hasImage" (click)="onNextIteration()">Proxima Iteração</button>
+<button *ngIf="hasImage" (click)="onPreviousIteration()" [disabled]="isProcessingAutoIteration">
+    Anterior Iteração
+</button>
+<button *ngIf="hasImage" (click)="onNextIteration()" [disabled]="isProcessingAutoIteration">Proxima Iteração</button>
