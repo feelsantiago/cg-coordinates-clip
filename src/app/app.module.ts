@@ -21,6 +21,7 @@ import { CircleTrigResultComponent } from './components/circle-trig-result/circl
 import { CircleInputsComponent } from './components/circle-inputs/circle-inputs.component';
 import { CirclePmResultComponent } from './components/circle-pm-result/circle-pm-result.component';
 import { FractalComponent } from './pages/fractal/fractal.component';
+import { ArnoldComponent } from './pages/arnold/arnold.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { FractalComponent } from './pages/fractal/fractal.component';
         CircleInputsComponent,
         CirclePmResultComponent,
         FractalComponent,
+        ArnoldComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [],

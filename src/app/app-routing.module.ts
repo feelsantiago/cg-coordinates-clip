@@ -6,6 +6,7 @@ import { DrawComponent } from './pages/draw/draw.component';
 import { LinesComponent } from './pages/lines/lines.component';
 import { CirclesComponent } from './pages/circles/circles.component';
 import { FractalComponent } from './pages/fractal/fractal.component';
+import { ArnoldComponent } from './pages/arnold/arnold.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,10 @@ const routes: Routes = [
     {
         path: 'fractal',
         component: FractalComponent,
+    },
+    {
+        path: 'arnold',
+        component: ArnoldComponent,
     },
     {
         path: '',
