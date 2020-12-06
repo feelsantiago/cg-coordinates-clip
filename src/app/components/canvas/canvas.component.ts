@@ -100,6 +100,97 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.canvasContext.restore();
     }
 
+    public drawHeart(): void {
+        this.canvasContext.save();
+
+        this.canvasContext.shadowColor = '#555555';
+        this.canvasContext.shadowBlur = 10;
+        this.canvasContext.shadowOffsetX = 2;
+        this.canvasContext.shadowOffsetY = 2;
+
+        this.canvasContext.beginPath();
+
+        this.canvasContext.fillStyle = 'rgba( 255, 211, 171, 1 )';
+        this.canvasContext.lineWidth = 10;
+        this.canvasContext.strokeStyle = 'rgba( 20, 50, 20, 1 )';
+        this.canvasContext.rect(0, 0, this.width, this.height);
+        this.canvasContext.fill();
+        this.canvasContext.stroke();
+
+        this.canvasContext.closePath();
+
+        const screenWidth = this.width;
+        const screenHeight = this.height;
+        const screenTop = 0;
+        const screenLeft = 0;
+
+        const screenBackgroundRender = (a: number): void => {
+            this.canvasContext.beginPath();
+
+            this.canvasContext.fillStyle = `rgba( 20, 20, 20, ${a} )`;
+            this.canvasContext.fillRect(screenLeft, screenTop, screenWidth, screenHeight);
+
+            this.canvasContext.closePath();
+
+            this.canvasContext.beginPath();
+
+            for (let j = 10 + screenTop; j < screenTop + screenHeight; j += 10) {
+                this.canvasContext.moveTo(screenLeft, j);
+                this.canvasContext.lineTo(screenLeft + screenWidth, j);
+            }
+
+            for (let i = 10 + screenLeft; i < screenLeft + screenWidth; i += 10) {
+                this.canvasContext.moveTo(i, screenTop);
+                this.canvasContext.lineTo(i, screenTop + screenHeight);
+            }
+
+            this.canvasContext.lineWidth = 1;
+            this.canvasContext.strokeStyle = `rgba( 20, 50, 20, ${a} )`;
+            this.canvasContext.stroke();
+            this.canvasContext.closePath();
+        };
+
+        this.canvasContext.shadowBlur = 0;
+        this.canvasContext.shadowOffsetX = 0;
+        this.canvasContext.shadowOffsetY = 0;
+        screenBackgroundRender(1);
+
+        // animation
+        let PosX = screenLeft;
+        let PosY = screenTop + screenHeight / 2;
+
+        setInterval(() => {
+            this.canvasContext.restore();
+
+            screenBackgroundRender(0.06);
+
+            this.canvasContext.beginPath();
+            this.canvasContext.moveTo(PosX, PosY);
+            PosX += 1;
+            if (PosX >= screenLeft + (screenWidth * 40) / 100 && PosX < screenLeft + (screenWidth * 45) / 100) {
+                PosY -= (screenHeight * 3) / 100;
+            }
+            if (PosX >= screenLeft + (screenWidth * 45) / 100 && PosX < screenLeft + (screenWidth * 55) / 100) {
+                PosY += (screenHeight * 3) / 100;
+            }
+            if (PosX >= screenLeft + (screenWidth * 55) / 100 && PosX < screenLeft + (screenWidth * 60) / 100) {
+                PosY -= (screenHeight * 3) / 100;
+            }
+            if (PosX >= screenLeft + (screenWidth * 60) / 100 && PosX <= screenLeft + screenWidth) {
+                PosY = screenTop + screenHeight / 2;
+            }
+            if (PosX > screenLeft + screenWidth) {
+                PosX = screenLeft;
+                this.canvasContext.moveTo(PosX, PosY);
+            }
+            this.canvasContext.lineTo(PosX, PosY);
+            this.canvasContext.lineWidth = 2;
+            this.canvasContext.strokeStyle = '#33ff33';
+            this.canvasContext.stroke();
+            this.canvasContext.closePath();
+        }, 6);
+    }
+
     public drawImage(image: HTMLImageElement): void {
         this.canvasContext.drawImage(image, 0, 0, this.width, this.height);
     }
