@@ -8,10 +8,15 @@
             height: 52px;
             margin-right: 10px;
         }
+
+        span {
+            font-size: 34px;
+        }
     }
 
     a {
-        font-size: 18px;
+        font-size: 16px;
+        padding: 10px;
 
         &.active {
             color: #ff7d00;
