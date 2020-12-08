@@ -11,21 +11,21 @@
         />
         <label for="file-upload">
             <img src="assets/images/upload.png" alt="upload" />
-            Selecione uma imagem
+            Select an image
         </label>
     </div>
 
     <div class="image-interation" *ngIf="hasImage">
-        <span class="is-size-5">Interação: {{ iteration }}</span>
+        <span class="is-size-5">Iteration: {{ iteration }}</span>
 
         <div class="buttons">
             <button (click)="onPreviousIteration()" [disabled]="isProcessingAutoIteration" class="button previous">
                 <img src="assets/images/arrow.png" alt="upload" />
-                Anterior Iteração
+                Previous Iteration
             </button>
 
             <button (click)="onNextIteration()" [disabled]="isProcessingAutoIteration" class="button next">
-                Proxima Iteração
+                Next Iteration
                 <img src="assets/images/arrow.png" alt="upload" />
             </button>
         </div>
