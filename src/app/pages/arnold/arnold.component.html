@@ -1,8 +1,35 @@
-<input type="file" name="fileUpload" id="file-upload" accept="image/*" (change)="onFileUpload($event.target.files)" />
+<div class="arnold">
+    <span class="is-size-3">Arnold's Cat</span>
 
-<app-canvas *ngIf="hasImage" [cartesianLines]="false" [width]="imageWidth" [height]="imageHeight"></app-canvas>
-<h1 *ngIf="hasImage">Iteration: {{ iteration }}</h1>
-<button *ngIf="hasImage" (click)="onPreviousIteration()" [disabled]="isProcessingAutoIteration">
-    Anterior Iteração
-</button>
-<button *ngIf="hasImage" (click)="onNextIteration()" [disabled]="isProcessingAutoIteration">Proxima Iteração</button>
+    <div class="image-input">
+        <input
+            type="file"
+            id="file-upload"
+            name="file-upload"
+            accept="image/*"
+            (change)="onFileUpload($event.target.files)"
+        />
+        <label for="file-upload">
+            <img src="assets/images/upload.png" alt="upload" />
+            Selecione uma imagem
+        </label>
+    </div>
+
+    <div class="image-interation" *ngIf="hasImage">
+        <span class="is-size-5">Interação: {{ iteration }}</span>
+
+        <div class="buttons">
+            <button (click)="onPreviousIteration()" [disabled]="isProcessingAutoIteration" class="button previous">
+                <img src="assets/images/arrow.png" alt="upload" />
+                Anterior Iteração
+            </button>
+
+            <button (click)="onNextIteration()" [disabled]="isProcessingAutoIteration" class="button next">
+                Proxima Iteração
+                <img src="assets/images/arrow.png" alt="upload" />
+            </button>
+        </div>
+
+        <app-canvas [cartesianLines]="false" [width]="imageWidth" [height]="imageHeight"></app-canvas>
+    </div>
+</div>
